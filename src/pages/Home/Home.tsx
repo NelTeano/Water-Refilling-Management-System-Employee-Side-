@@ -3,10 +3,15 @@ import React from 'react'
 // COMPONENTS
 import { Input } from "@/components/ui/input"
 
+// PAGE STYLES
+import './Home.css'
+
 export default function Home() {
     return (
         <>
-            This is Home Page<Input />
+            <div className='home-container'>
+                This is Home Page<Input />
+            </div>
         </>
     )
 }
