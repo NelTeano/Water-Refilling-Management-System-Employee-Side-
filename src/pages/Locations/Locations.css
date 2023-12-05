@@ -1,0 +1,13 @@
+.locations-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: white;
+    gap: 30px;
+    left: 20%;
+    top: 0px;
+    width: 80%;
+    height: 100vh;
+}

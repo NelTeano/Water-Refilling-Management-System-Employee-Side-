@@ -1,9 +1,14 @@
 import React from 'react'
 
+// PAGE STYLES
+import './Locations.css'
+
 export default function Locations() {
     return (
         <>
-        See Locations
+            <div className='locations-container'>
+                This is Location Page
+            </div>
         </>
     )
 }
