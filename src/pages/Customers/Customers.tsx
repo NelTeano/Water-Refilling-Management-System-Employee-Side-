@@ -22,9 +22,6 @@ import './customers.css';
 import { RiUserSearchFill } from "react-icons/ri";
 
 export default function Customers() {
-    const [visibleRows, setVisibleRows] = useState(2);
-    const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 4;
 
     const [customers, setCustomers] = useState([
         {
@@ -59,6 +56,10 @@ export default function Customers() {
         }
     ]);
 
+    // --------------PAGING AND SEARCH FUNCTIONS----------------------
+    const [visibleRows, setVisibleRows] = useState(2);
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 4;
     const [filteredCustomers, setFilteredCustomers] = useState(customers);
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -87,7 +88,7 @@ export default function Customers() {
             setCurrentPage((prevPage) => prevPage - 1);
         }
     };
-
+    // --------------------------------------------------------------
     
 
     return (
@@ -98,7 +99,7 @@ export default function Customers() {
                 <span><Input placeholder='Search Customer' onChange={(e) => setSearchTerm(e.target.value)} /></span>
             </section>
             <section>
-                <Table style={{ width: '800px' }}>
+                <Table className='w-[800px] h-[400px] '>
                     <TableCaption>
                         A list of your Customers.
                     </TableCaption>

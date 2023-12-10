@@ -2,6 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from 'cors';
 
+// ROUTES
+import UserRoutes from "./routes/Users/usersRoutes.js";
+
 // DATABASE CONNECTION
 import { initDatabase } from './database.js'
 
@@ -13,6 +16,7 @@ const PORT = 5174;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log(`http://localhost:${PORT}`)
 });
 app.use(cors({
     origin: [
@@ -20,6 +24,9 @@ app.use(cors({
     ],  // THE HTTP(ORIGIN) THAT WILL ALLOW TO ACCESS THE ROUTES
     credentials: true,
 }));
+
+// USE ROUTES
+app.use('/api', UserRoutes);
 
 
 //MIDDLEWARE

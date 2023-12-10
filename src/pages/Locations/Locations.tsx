@@ -160,7 +160,7 @@ export default function Locations() {
                     </ReactMapGL>
                     </section>
                     <section className='map-board-details'>
-                        <Card style={{width: '300px', height: '60vh'}}>
+                        <Card style={{width: '300px', height: 'auto'}}>
                             <CardHeader>
                                 <CardTitle>Details</CardTitle>
                                 <CardDescription>Customer Description</CardDescription>

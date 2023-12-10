@@ -11,3 +11,29 @@
     width: 80%;
     height: 100vh;
 }
+
+.orders-container section{
+    position: relative;
+    
+}
+
+.orders-container span{
+    display: flex;
+    align-items: center;
+}
+
+.orders-searchBar{
+    display: flex; 
+    position: relative;
+    gap: 30px;
+}
+
+.orders-search-icon{
+    font-size: 25px;
+    color: #767e95;
+}
+
+.orders-pageButtons{
+    display: flex;
+    gap: 30px;
+}   
