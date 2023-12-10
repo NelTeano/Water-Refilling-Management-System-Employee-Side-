@@ -136,8 +136,7 @@ export default function Locations() {
                                 key={index}
                                 latitude={latitude}
                                 longitude={longitude}
-                                offsetLeft={-3.5 * viewport.zoom}
-                                offsetRight={-7 * viewport.zoom}
+                                
                                 draggable={true}
                                 onDragEnd={(e) => {
                                 setLatitude(e.lngLat.lat);
