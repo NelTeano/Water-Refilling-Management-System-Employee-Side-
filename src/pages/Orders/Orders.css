@@ -37,3 +37,7 @@
     display: flex;
     gap: 30px;
 }   
+
+.direction-icon{
+    font-size: 27px;
+}

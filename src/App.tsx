@@ -6,7 +6,7 @@ import Home from './pages/Home/Home'
 import Orders from './pages/Orders/Orders';
 import Locations from './pages/Locations/Locations';
 import Customers from './pages/Customers/Customers';
-import Dashboard from './pages/Dashboard/Dashboard';
+import Directions from './pages/Dashboard/Directions';
 
 // COMPONENTS
 import Navbar from './components/sideBar/sideBar';
@@ -22,7 +22,7 @@ function App() {
   
   const routes = [
     {
-      pathname: "/",
+      pathname: "/Directions",
       element: Home
     },
     {
@@ -38,8 +38,8 @@ function App() {
       element: Customers
     },
     {
-      pathname: "/Dashboard",
-      element: Dashboard
+      pathname: "/Directions/:id/:username",
+      element: Directions
     },
   ];
 
