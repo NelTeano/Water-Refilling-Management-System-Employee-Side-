@@ -15,87 +15,116 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
+// ICONS
 import { RiUserSearchFill } from "react-icons/ri";
+import { MdDeliveryDining } from "react-icons/md";
 
 import './Orders.css'
+import { Link } from 'react-router-dom';
+
+
+interface Order {
+    _id: string;
+    round: number;
+    slim: number;
+    total: number;
+    isOwned: boolean;
+    status: string;
+    username: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+}
 
 
 export default function Orders() {
 
-    const [customers, setCustomers] = useState([
-        {
-            _id: {
-                $oid: "656d6zxc1235973a7dd5"
-            },
-            name: "Jonel Teano",
-            round: 1,
-            slim: 5,
-            total: 225,
-            isOwned: true,
-            status: "pending",
-            createdAt: {
-                $date: "2023-12-02T07:27:50.578Z"
-            },
-            updatedAt: {
-                $date: "2023-12-02T07:27:50.578Z"
-            },
-            __v: 0
-        },
-        {
-            _id: {
-                $oid: "656d6qweqwe2db5973a7dd5"
-            },
-            name: "Joshua Magwili",
-            round: 2,
-            slim: 20,
-            total: 225,
-            isOwned: true,
-            status: "pending",
-            createdAt: {
-                $date: "2023-12-04T01:27:50.578Z"
-            },
-            updatedAt: {
-                $date: "2023-12-04T04:27:50.578Z"
-            },
-            __v: 0
-        },
-        {
-            _id: {
-                "$oid": "656d63asdasddb5973a7dd5"
-            },
-            name: "Shanny Sins",
-            round: 4,
-            slim: 10,
-            total: 225,
-            isOwned: true,
-            status: "pending",
-            createdAt: {
-                $date: "2023-12-08T05:27:50.578Z"
-            },
-            updatedAt: {
-                $date: "2023-12-09T05:27:50.578Z"
-            },
-            __v: 0
-        },
-        {
-            _id: {
-                $oid: "656dwqehg2db5973a7dd5"
-            },
-            name: "Garret The Mahinang nilalang",
-            round: 10,
-            slim: 1,
-            total: 225,
-            isOwned: true,
-            status: "pending",
-            createdAt: {
-                $date: "2023-12-07T05:27:50.578Z"
-            },
-            updatedAt: {
-                $date: "2023-12-03T05:27:50.578Z"
-            },
-            __v: 0
-        },
-    ]);
+    
+    const [customers, setCustomers] = useState<Order[]>([])
+
+    useEffect(() => {
+        // GET ALL THE ORDERS
+        // const getOrders = async () => {
+    
+        //     try {
+        //         const response = await fetch(`http://localhost:5174/api/orders`);
+                
+        //         if (!response.ok) {
+        //         throw new Error(`HTTP error! Status: ${response.status}`);
+        //         }
+    
+        //         const result = await response.json();
+    
+        //         setOrders(result);
+        //     } catch (error) {
+        //         console.error('Error fetching data:', error);
+        //     }
+        //     };
+
+        // TEST GET ORDERS STATE
+        const getOrderss = async () => {
+
+            try {
+                const response: Order[] = [{
+                    _id: "657c2629926f1ca9be8e7410",
+                    round: 1,
+                    slim: 1,
+                    total: 60,
+                    isOwned : false,
+                    status : "confirmed",
+                    username: "joshuamagwili@gmail.com",
+                    createdAt: "2023-12-15T10:10:49.564Z",
+                    updatedAt: "2023-12-15T10:10:49.564Z",
+                    __v: 0
+                },
+                {
+                    _id: "657c2b256fa938b9fb2aebc1",
+                    round: 1,
+                    slim: 0,
+                    total: 30,
+                    isOwned : false,
+                    status : "confirmed",
+                    username: "joshuamagwili@gmail.com",
+                    createdAt: "2023-12-15T10:32:05.965Z",
+                    updatedAt: "2023-12-15T10:32:05.965Z",
+                    __v: 0
+                },
+                {
+                    _id: "657c2b2e6fa938b9fb2aebd1",
+                    round: 1,
+                    slim: 1,
+                    total: 60,
+                    isOwned : false,
+                    status : "confirmed",
+                    username: "joshuamagwili@gmail.com",
+                    createdAt: "2023-12-15T10:32:14.908Z",
+                    updatedAt: "2023-12-15T10:32:14.908Z",
+                    __v: 0
+                },
+                {
+                    _id: "657c2bb66fa938b9fb2aebe1",
+                    round: 1,
+                    slim: 2,
+                    total: 90,
+                    isOwned : false,
+                    status : "delivered",
+                    username: "joshuamagwili@gmail.com",
+                    createdAt: "2023-12-15T10:34:30.490Z",
+                    updatedAt: "2023-12-15T10:34:30.490Z",
+                    __v: 0
+                }];
+
+                setCustomers(response);
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }    
+        }
+    
+            // getOrders();
+            getOrderss();
+        }, []);
+
+        console.log(customers)
 
     // --------------PAGING AND SEARCH FUNCTIONS----------------
 
@@ -112,7 +141,7 @@ export default function Orders() {
     useEffect(() => {
         // Filter customers based on the search term
         const filtered = customers.filter((customer) =>
-            customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+            customer.username.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
         setFilteredCustomers(filtered);
@@ -146,25 +175,31 @@ export default function Orders() {
                         <TableCaption>A list of Orders</TableCaption>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[100px]">Cust ID</TableHead>
                                 <TableHead className="text-left w-[200px]">Name</TableHead>
                                 <TableHead>Slim</TableHead>
                                 <TableHead>Round</TableHead>
                                 <TableHead>Total</TableHead>
                                 <TableHead>Status</TableHead>
                                 <TableHead  className="text-center w-[200px]">Date</TableHead>
+                                <TableHead>Directions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                         {filteredCustomers.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((customer, index) => (
                             <TableRow key={index}>
-                                <TableCell className="font-medium">{customer._id.$oid}</TableCell>
-                                <TableCell>{customer.name}</TableCell>
+                                <TableCell>{customer.username}</TableCell>
                                 <TableCell>{customer.slim}</TableCell>
-                                <TableCell >{customer.round}</TableCell>
-                                <TableCell >₱{customer.total}</TableCell>
-                                <TableCell >{customer.status}</TableCell>
-                                <TableCell className="text-right">{format(new Date(customer.createdAt.$date), 'MMMM d, yyyy  h:mm a')}</TableCell>
+                                <TableCell>{customer.round}</TableCell>
+                                <TableCell>₱{customer.total}</TableCell>
+                                <TableCell>{customer.status}</TableCell>
+                                <TableCell className="text-right">{format(new Date(customer.createdAt), 'MMMM d, yyyy  h:mm a')}</TableCell>
+                                <TableCell>
+                                    <Link to={`/Directions/${customer._id}/${customer.username}`}>
+                                        <Button>
+                                            <MdDeliveryDining  className="direction-icon"/>
+                                        </Button>
+                                    </Link>
+                                </TableCell>
                             </TableRow>   
                         ))}
                         </TableBody>

@@ -4,6 +4,7 @@ import cors from 'cors';
 
 // ROUTES
 import UserRoutes from "./routes/Users/usersRoutes.js";
+import OrderRoutes from "./routes/Orders/orderRoutes.js"
 
 // DATABASE CONNECTION
 import { initDatabase } from './database.js'
@@ -27,6 +28,7 @@ app.use(cors({
 
 // USE ROUTES
 app.use('/api', UserRoutes);
+app.use('/api', OrderRoutes);
 
 
 //MIDDLEWARE

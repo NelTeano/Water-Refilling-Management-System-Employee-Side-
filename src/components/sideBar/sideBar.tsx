@@ -20,10 +20,11 @@ export default function sideBar() {
         <>
             <nav>
                 <div><h2>Hydro<span>Maze</span></h2></div>
-                <Link to={'/Dashboard'}><Button><MdDashboard className="sidebar-icons"/>Dashboard</Button></Link>             
+                <Link to={'/Directions'}><Button><MdDashboard className="sidebar-icons"/>Directions</Button></Link>             
                 <Link to={'/Orders'}><Button><FaShoppingCart className="sidebar-icons"/>Orders</Button></Link>
                 <Link to={'/Customers'}><Button><FaPerson  className="sidebar-icons"/>Customers</Button></Link>
                 <Link to={'/Locations'}><Button><LiaSearchLocationSolid className="sidebar-icons"/>Locations</Button></Link>
+                
                 <Button className="sidebar-logout"><IoLogOut className="sidebar-icons"/>Log Out</Button>
             </nav>
         </>
