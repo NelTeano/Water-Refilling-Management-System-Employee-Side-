@@ -171,23 +171,23 @@ export default function Orders() {
                     <span><Input placeholder='Search Customer' onChange={(e) => setSearchTerm(e.target.value)} /></span>
                 </section>
                 <div>
-                    <Table className='w-[800px] h-[400px]'>
+                    <Table className='order-table'>
                         <TableCaption>A list of Orders</TableCaption>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="text-left w-[200px]">Name</TableHead>
+                                <TableHead >Name</TableHead>
                                 <TableHead>Slim</TableHead>
                                 <TableHead>Round</TableHead>
                                 <TableHead>Total</TableHead>
                                 <TableHead>Status</TableHead>
-                                <TableHead  className="text-center w-[200px]">Date</TableHead>
+                                <TableHead >Date</TableHead>
                                 <TableHead>Directions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                         {filteredCustomers.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((customer, index) => (
                             <TableRow key={index}>
-                                <TableCell>{customer.username}</TableCell>
+                                <TableCell className={window.innerWidth <= 1150 ? 'flex' : ''}>{customer.username}</TableCell>
                                 <TableCell>{customer.slim}</TableCell>
                                 <TableCell>{customer.round}</TableCell>
                                 <TableCell>₱{customer.total}</TableCell>

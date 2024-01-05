@@ -16,7 +16,7 @@ export default function sideBar() {
     
     return (
         <>
-            <nav>
+            <nav className='sidebar'>
                 <div><h2>Hydro<span>Maze</span></h2></div>         
                 <Link to={'/Orders'}><Button><FaShoppingCart className="sidebar-icons"/>Orders</Button></Link>
                 <Link to={'/Locations'}><Button><LiaSearchLocationSolid className="sidebar-icons"/>Locations</Button></Link>

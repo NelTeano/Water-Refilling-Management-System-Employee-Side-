@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom'
 
 // PAGES
@@ -17,26 +17,7 @@ import './App.css'
 
 function App() {
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    // Update isMobile state on window resize
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 1065); // Adjust the threshold as needed
-    };
-
-    // Initial check on mount
-    handleResize();
-
-    // Add event listener for window resize
-    window.addEventListener('resize', handleResize);
-
-    // Remove event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
+  
   
   
   const routes = [
@@ -61,7 +42,8 @@ function App() {
 
   return (
     <>
-    {isMobile ? <Hamburger /> : <Navbar />}
+      <Hamburger />  
+      <Navbar />
       <Routes>
         
         {routes.map((route, index)=> (
