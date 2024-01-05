@@ -21,7 +21,8 @@ app.listen(PORT, () => {
 });
 app.use(cors({
     origin: [
-        'http://localhost:5173'
+        'http://localhost:5173',
+        'http://127.0.0.1:5173'
     ],  // THE HTTP(ORIGIN) THAT WILL ALLOW TO ACCESS THE ROUTES
     credentials: true,
 }));
