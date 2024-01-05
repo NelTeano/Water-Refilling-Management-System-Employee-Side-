@@ -5,12 +5,11 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Orders from './pages/Orders/Orders';
 import Locations from './pages/Locations/Locations';
-import Customers from './pages/Customers/Customers';
-import Directions from './pages/Dashboard/Directions';
+import Directions from './pages/Directions/Directions';
 
 // COMPONENTS
 import Navbar from './components/sideBar/sideBar';
-
+import Hamburger from './components/hamburgerMenu/Hamburger'
 
 
 import './App.css'
@@ -18,6 +17,7 @@ import './App.css'
 
 function App() {
 
+  
   
   
   const routes = [
@@ -34,10 +34,6 @@ function App() {
       element: Locations
     },
     {
-      pathname: "/Customers",
-      element: Customers
-    },
-    {
       pathname: "/Directions/:id/:username",
       element: Directions
     },
@@ -46,7 +42,8 @@ function App() {
 
   return (
     <>
-    <Navbar />
+      <Hamburger />  
+      <Navbar />
       <Routes>
         
         {routes.map((route, index)=> (

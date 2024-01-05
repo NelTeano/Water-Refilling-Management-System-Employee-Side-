@@ -4,14 +4,6 @@ import React,{ useEffect, useState} from 'react'
 import ReactMapGL, { Marker} from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-// COMPONENTS
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
 
 import {
     Card,
@@ -21,11 +13,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 
-import { Input } from "@/components/ui/input"
-
-
 // ICONS
-import { RiUserSearchFill } from "react-icons/ri";
 import { FaLocationDot } from "react-icons/fa6";
 
 // PAGE STYLES
@@ -99,24 +87,6 @@ export default function Locations() {
     return (
         <>
             <div className='locations-container'>
-                <section className='locations-functions'>
-                    <div> 
-                        <span><RiUserSearchFill className="customers-search-icon"/></span>
-                        <span><Input placeholder='Search Customer'  /></span>
-                    </div>
-                    <div>
-                        <Select>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select Locations" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="light">Light</SelectItem>
-                            <SelectItem value="dark">Dark</SelectItem>
-                            <SelectItem value="system">System</SelectItem>
-                        </SelectContent>
-                        </Select>
-                    </div>
-                </section>
                 <section className='locations-body'>
                     <section className='map-container'>
                         <ReactMapGL
@@ -160,7 +130,7 @@ export default function Locations() {
                     </ReactMapGL>
                     </section>
                     <section className='map-board-details'>
-                        <Card style={{width: '300px', height: 'auto'}}>
+                        <Card className='map-board-card' >
                             <CardHeader>
                                 <CardTitle>Details</CardTitle>
                                 <CardDescription>Customer Description</CardDescription>

@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     position: relative;
     background-color: white;
     gap: 30px;
@@ -11,22 +12,7 @@
     height: 100vh;
 }
 
-.locations-functions{
-    display: flex;
-    position: relative;
-    margin-left: 40px;
-    gap: 100px;
-}
 
-.locations-functions div{
-    display: flex;
-    align-items: center;
-}
-
-.locations-functions input{
-    width: 150px;
-    margin-left: 20px;
-}
 
 .locations-body{
     display: flex;
@@ -45,7 +31,11 @@
     width: 60%;
     height: 60vh;
     left: 30px;
-    
+}
+
+.map-board-card{
+    width: 300px;
+    height: auto;
 }
 
 .map-board-details img{
@@ -55,4 +45,26 @@
     margin-top: 10px;
     margin-left: 60px;
     
+}
+
+
+@media (max-width: 1150px) {
+
+    .locations-container{
+        width: 100%;
+        height: 100%;
+        margin-bottom: 30px;
+    }
+
+    .map-board-details{
+        width: 700px;
+    }
+    .map-board-card{
+        width: 90%;
+    }
+
+    .map-container{
+        width: 100%;
+        margin: 100px 40px 0px 0px;
+    }
 }

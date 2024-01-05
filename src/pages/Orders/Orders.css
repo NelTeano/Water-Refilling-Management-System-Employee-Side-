@@ -1,4 +1,4 @@
-.orders-container{
+.orders-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,34 +10,50 @@
     top: 0px;
     width: 80%;
     height: 100vh;
+    overflow-x: auto;  /* Enable horizontal scrolling */
 }
 
-.orders-container section{
+.orders-container section {
     position: relative;
-    
 }
 
-.orders-container span{
+.orders-container span {
     display: flex;
     align-items: center;
 }
 
-.orders-searchBar{
-    display: flex; 
+.orders-searchBar {
+    display: flex;
     position: relative;
     gap: 30px;
 }
 
-.orders-search-icon{
+.orders-search-icon {
     font-size: 25px;
     color: #767e95;
 }
 
-.orders-pageButtons{
+.orders-pageButtons {
     display: flex;
     gap: 30px;
-}   
+}
 
-.direction-icon{
+.order-table {
+    min-width: 100%;
+}
+
+.direction-icon {
     font-size: 27px;
+}
+
+@media (max-width: 1150px) {
+    .orders-container {
+        width: 100%;
+    }
+    
+    .order-table {
+        width: 100%;  /* Take the full width in mobile view */
+        overflow-x: auto;  /* Enable horizontal scrolling */
+        font-size: 40px;
+    }
 }

@@ -36,7 +36,6 @@ nav button{
     display: flex;
     justify-content: flex-start;
     width: 200px;
-    
 }
 
 
@@ -52,3 +51,8 @@ nav button{
     width: 90%;
 }
 
+@media (max-width: 1150px) {
+    .sidebar{
+        display: none;
+    }
+}
