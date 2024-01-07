@@ -75,7 +75,8 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="directions-container">This is Directions Page</div>
+      <div className="directions-container">This is Directions Page
+      </div>
     </>
   );
 }

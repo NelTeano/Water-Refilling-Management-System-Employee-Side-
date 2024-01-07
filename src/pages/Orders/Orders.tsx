@@ -120,7 +120,8 @@ export default function Orders() {
             }    
         }
     
-            // getOrders();
+    
+          
             getOrderss();
         }, []);
 
@@ -209,6 +210,11 @@ export default function Orders() {
                     <Button onClick={handlePrevClick}>Previous</Button>
                     <Button onClick={handleNextClick}>Next</Button>
             </section>
+            <div>
+                <Link to="/Navigate/">
+                <Button>Start Navigation</Button>
+                </Link>
+            </div>
             </div>
         </>
     )
