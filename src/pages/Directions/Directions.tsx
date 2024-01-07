@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import ReactMapGL, { Marker } from "react-map-gl";
 // PAGE STYLES
 import "./Directions.css";
 
@@ -76,6 +76,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="directions-container">This is Directions Page
+          
       </div>
     </>
   );
