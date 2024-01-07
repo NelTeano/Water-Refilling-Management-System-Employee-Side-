@@ -1,9 +1,10 @@
+import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import React, { useEffect, useState } from "react";
 import ReactMapGL, {
   Marker,
   NavigationControl,
   GeolocateControl,
-  Popup,
+  Popup, Source,Layer
 } from "react-map-gl";
 import { useParams } from "react-router-dom";
 
@@ -19,7 +20,7 @@ interface Viewport {
 }
 
 export default function Navigate() {
-  const [routeData, setRouteData] = useState<number[][]>([]);
+  const [routeData, setRouteData] = useState([]);
   const [viewport, setViewport] = useState<Viewport>({
     width: "100%",
     height: 400,
@@ -27,6 +28,19 @@ export default function Navigate() {
     longitude: 120.99311440171681,
     zoom: 16,
   });
+  const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "LineString",
+          coordinates: [...routeData]
+        },
+      }, 
+    ]
+  };
 
   useEffect(() => {
     const getRoute = async () => {
@@ -50,47 +64,67 @@ export default function Navigate() {
 
   return (
     <div className="directions-container">
-      <ReactMapGL
-        {...viewport}
-        mapStyle="mapbox://styles/mapbox/streets-v11"
-        mapboxAccessToken={token}
-      >
-        <Marker latitude={routeData[0][1]} longitude={routeData[0][0]}>
-          <div>Start</div>
-        </Marker>
+    <ReactMapGL
+      {...viewport}
+      mapStyle="mapbox://styles/mapbox/streets-v11"
+      mapboxAccessToken={token}
+    >
+      {routeData.length > 0 && (
+        <>
+          <Marker latitude={routeData[0][1]} longitude={routeData[0][0]}>
+            <div>Start</div>
+          </Marker>
 
-        <Marker
-          latitude={routeData[routeData.length - 1][1]}
-          longitude={routeData[routeData.length - 1][0]}
-        >
-          <div>End</div>
-        </Marker>
+          <Marker
+            latitude={routeData[routeData.length - 1][1]}
+            longitude={routeData[routeData.length - 1][0]}
+          >
+            <div>End</div>
+          </Marker>
 
-        <NavigationControl showZoom position="top-right" />
+          <NavigationControl showZoom position="top-right" />
 
-        <GeolocateControl
-          positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation={true}
-        />
+          <GeolocateControl
+            positionOptions={{ enableHighAccuracy: true }}
+            trackUserLocation={true}
+          />
 
-        <Popup
-          latitude={routeData[0][1]}
-          longitude={routeData[0][0]}
-          closeButton={false}
-          closeOnClick={false}
-        >
-          <div>Start</div>
-        </Popup>
+          <Source id="route" type="geojson" data={geojson}>
+            <Layer
+              id="route"
+              type="line"
+              source="route"
+              layout={{
+                "line-join": "round",
+                "line-cap": "round"
+              }}
+              paint={{
+                "line-color": "#888",
+                "line-width": 8
+              }}
+            />
+          </Source>
 
-        <Popup
-          latitude={routeData[routeData.length - 1][1]}
-          longitude={routeData[routeData.length - 1][0]}
-          closeButton={false}
-          closeOnClick={false}
-        >
-          <div>End</div>
-        </Popup>
-      </ReactMapGL>
-    </div>
+          <Popup
+            latitude={routeData[0][1]}
+            longitude={routeData[0][0]}
+            closeButton={false}
+            closeOnClick={false}
+          >
+            <div>Start</div>
+          </Popup>
+
+          <Popup
+            latitude={routeData[routeData.length - 1][1]}
+            longitude={routeData[routeData.length - 1][0]}
+            closeButton={false}
+            closeOnClick={false}
+          >
+            <div>End</div>
+          </Popup>
+        </>
+      )}
+    </ReactMapGL>
+  </div>
   );
 }
