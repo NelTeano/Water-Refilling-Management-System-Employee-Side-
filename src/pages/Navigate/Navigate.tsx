@@ -10,12 +10,12 @@ import ReactMapGL, {
 } from "react-map-gl";
 import { useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
+import {useLocation} from "react-router-dom"
 const token =
   "pk.eyJ1Ijoiam1hZ3dpbGkiLCJhIjoiY2xwaGZwaHh0MDJtOTJqbzVkanpvYjRkNSJ9.fZFeViJyigw6k1ebFAbTYA";
 
 interface Viewport {
-  width: string | number;
-  height: number;
+
   latitude: number;
   longitude: number;
   zoom: number;
@@ -26,13 +26,14 @@ export default function Navigate() {
   const [latitude, setLatitude] = useState<Number>();
   const [longitude, setLongitude] = useState<Number>();
   const [viewport, setViewport] = useState<Viewport>({
-    width: "100%",
-    height: 400,
+
     latitude: 14.32013590771544,
     longitude: 120.99311440171681,
     zoom: 16,
+    
   });
-
+  
+  
   const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
     type: "FeatureCollection",
     features: [
@@ -65,7 +66,7 @@ export default function Navigate() {
   useEffect(() => {
     const getRoute = async () => {
       try {
-        const loc1 = [120.99311440171681, 14.32013590771544];
+       
         const loc2 = [120.9921407898388, 14.321070651256804];
 
         const response = await fetch(
@@ -78,23 +79,31 @@ export default function Navigate() {
         console.log(err);
       }
     };
-
+  
     getRoute();
   }, []);
 
   return (
     <div className="directions-container">
       <ReactMapGL
-        {...viewport}
+        {...viewport}       
         mapStyle="mapbox://styles/mapbox/streets-v11"
+        // onDrag={(e) => {
+        //   setViewport({
+        //     longitude: e.viewState.longitude,
+        //     latitude: e.viewState.latitude,         
+        //     zoom: e.viewState.zoom
+        //   });
+        // }}
         mapboxAccessToken={token}
+        dragPan={true} 
       >
         {routeData.length > 0 && (
           <>
             <Marker
               latitude={viewport.latitude}
               longitude={viewport.longitude}
-              draggable={true}
+              
               offset= {[0,-20]} 
             >
               <div>
@@ -111,7 +120,7 @@ export default function Navigate() {
             <Marker
               latitude={routeData[routeData.length - 1][1]}
               longitude={routeData[routeData.length - 1][0]}
-              draggable={true}
+              
               offset= {[0,-20]}         >
               <div>
                 <FaLocationDot

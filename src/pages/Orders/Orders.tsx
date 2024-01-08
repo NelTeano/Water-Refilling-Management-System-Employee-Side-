@@ -34,7 +34,7 @@ interface Order {
     username: string;
     createdAt: string;
     updatedAt: string;
-    location?: number[];
+    location: number[];
     __v: number;
 }
 
@@ -43,12 +43,9 @@ export default function Orders() {
 
     
     const [customers, setCustomers] = useState<Order[]>([])
-    
+    const navigate = useNavigate();
 
-    const handleNavigate = () => {
-        const navigate = useNavigate();
-        navigate('/Navigate', {state: {customers: customers}});
-    }
+ 
     useEffect(() => {
         // GET ALL THE ORDERS
         // const getOrders = async () => {
@@ -72,18 +69,7 @@ export default function Orders() {
         const getOrderss = async () => {
 
             try {
-                const response: Order[] = [{
-                    _id: "657c2629926f1ca9be8e7410",
-                    round: 1,
-                    slim: 1,
-                    total: 60,
-                    isOwned : false,
-                    status : "confirmed",
-                    username: "joshuamagwili@gmail.com",
-                    createdAt: "2023-12-15T10:10:49.564Z",
-                    updatedAt: "2023-12-15T10:10:49.564Z",
-                    __v: 0
-                },
+                const response: Order[] = [
                 {
                     _id: "657c2b256fa938b9fb2aebc1",
                     round: 1,
@@ -94,6 +80,7 @@ export default function Orders() {
                     username: "joshuamagwili@gmail.com",
                     createdAt: "2023-12-15T10:32:05.965Z",
                     updatedAt: "2023-12-15T10:32:05.965Z",
+                    location: [120.98195064088475, 14.334375074985957],
                     __v: 0
                 },
                 {
@@ -106,6 +93,7 @@ export default function Orders() {
                     username: "joshuamagwili@gmail.com",
                     createdAt: "2023-12-15T10:32:14.908Z",
                     updatedAt: "2023-12-15T10:32:14.908Z",
+                    location : [120.9581200219007, 14.31781346759307],
                     __v: 0
                 },
                 {
@@ -220,7 +208,7 @@ export default function Orders() {
             </section>
             <div>
                 <Link to="/Navigate/">
-                <Button onClick={handleNavigate}>Start Navigation</Button>
+                <Button >Start Navigation</Button>
                 </Link>
             </div>
             </div>
