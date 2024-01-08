@@ -4,10 +4,12 @@ import ReactMapGL, {
   Marker,
   NavigationControl,
   GeolocateControl,
-  Popup, Source,Layer
+  Popup,
+  Source,
+  Layer,
 } from "react-map-gl";
 import { useParams } from "react-router-dom";
-
+import { FaLocationDot } from "react-icons/fa6";
 const token =
   "pk.eyJ1Ijoiam1hZ3dpbGkiLCJhIjoiY2xwaGZwaHh0MDJtOTJqbzVkanpvYjRkNSJ9.fZFeViJyigw6k1ebFAbTYA";
 
@@ -30,7 +32,7 @@ export default function Navigate() {
     longitude: 120.99311440171681,
     zoom: 16,
   });
-  
+
   const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
     type: "FeatureCollection",
     features: [
@@ -39,10 +41,10 @@ export default function Navigate() {
         properties: {},
         geometry: {
           type: "LineString",
-          coordinates: [...routeData]
+          coordinates: [...routeData],
         },
-      }, 
-    ]
+      },
+    ],
   };
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -82,67 +84,72 @@ export default function Navigate() {
 
   return (
     <div className="directions-container">
-    <ReactMapGL
-      {...viewport}
-      mapStyle="mapbox://styles/mapbox/streets-v11"
-      mapboxAccessToken={token}
-    >
-      {routeData.length > 0 && (
-        <>
-          <Marker latitude={viewport.latitude} longitude={viewport.longitude}>
-            <div>Start</div>
-          </Marker>
+      <ReactMapGL
+        {...viewport}
+        mapStyle="mapbox://styles/mapbox/streets-v11"
+        mapboxAccessToken={token}
+      >
+        {routeData.length > 0 && (
+          <>
+            <Marker
+              latitude={viewport.latitude}
+              longitude={viewport.longitude}
+              draggable={true}
+            >
+              <div>
+                <FaLocationDot
+                  style={{
+                    height: "40px",
+                    width: "auto",
+                    color: "blue",
+                  }}
+                />
+              </div>
+            </Marker>
 
-          <Marker
-            latitude={routeData[routeData.length - 1][1]}
-            longitude={routeData[routeData.length - 1][0]}
-          >
-            <div>End</div>
-          </Marker>
+            <Marker
+              latitude={routeData[routeData.length - 1][1]}
+              longitude={routeData[routeData.length - 1][0]}
+              draggable={true}
+            >
+              <div>
+                <FaLocationDot
+                  style={{
+                    height: "40px",
+                    width: "auto",
+                    color: "blue",
+                  }}
+                />
+              </div>
+            </Marker>
 
-          <NavigationControl showZoom position="top-right" />
+            <NavigationControl showZoom position="top-right" />
 
-          <GeolocateControl
-            positionOptions={{ enableHighAccuracy: true }}
-            trackUserLocation={true}
-          />
-
-          <Source id="route" type="geojson" data={geojson}>
-            <Layer
-              id="route"
-              type="line"
-              source="route"
-              layout={{
-                "line-join": "round",
-                "line-cap": "round"
-              }}
-              paint={{
-                "line-color": "#0096FF",
-                "line-width": 8
-              }}
+            <GeolocateControl
+              positionOptions={{ enableHighAccuracy: true }}
+              trackUserLocation={true}
             />
-          </Source>
 
-          <Popup
-            latitude={viewport.latitude}
-            longitude={viewport.longitude}
-            closeButton={false}
-            closeOnClick={false}
-          >
-            <div>Start</div>
-          </Popup>
+            <Source id="route" type="geojson" data={geojson}>
+              <Layer
+                id="route"
+                type="line"
+                source="route"
+                layout={{
+                  "line-join": "round",
+                  "line-cap": "round",
+                }}
+                paint={{
+                  "line-color": "#0096FF",
+                  "line-width": 8,
+                }}
+              />
+            </Source>
 
-          <Popup
-            latitude={routeData[routeData.length - 1][1]}
-            longitude={routeData[routeData.length - 1][0]}
-            closeButton={false}
-            closeOnClick={false}
-          >
-            <div>End</div>
-          </Popup>
-        </>
-      )}
-    </ReactMapGL>
-  </div>
+      
+          </>
+        )}
+      </ReactMapGL>
+    </div>
   );
 }
