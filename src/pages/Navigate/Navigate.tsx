@@ -95,6 +95,7 @@ export default function Navigate() {
               latitude={viewport.latitude}
               longitude={viewport.longitude}
               draggable={true}
+              offset= {[0,-20]} 
             >
               <div>
                 <FaLocationDot
@@ -111,13 +112,14 @@ export default function Navigate() {
               latitude={routeData[routeData.length - 1][1]}
               longitude={routeData[routeData.length - 1][0]}
               draggable={true}
-            >
+              offset= {[0,-20]}         >
               <div>
                 <FaLocationDot
                   style={{
                     height: "40px",
                     width: "auto",
                     color: "blue",
+                    
                   }}
                 />
               </div>
