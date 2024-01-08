@@ -21,6 +21,8 @@ interface Viewport {
 
 export default function Navigate() {
   const [routeData, setRouteData] = useState([]);
+  const [latitude, setLatitude] = useState<Number>();
+  const [longitude, setLongitude] = useState<Number>();
   const [viewport, setViewport] = useState<Viewport>({
     width: "100%",
     height: 400,
@@ -28,6 +30,7 @@ export default function Navigate() {
     longitude: 120.99311440171681,
     zoom: 16,
   });
+  
   const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
     type: "FeatureCollection",
     features: [
@@ -41,6 +44,21 @@ export default function Navigate() {
       }, 
     ]
   };
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+        setViewport({
+          ...viewport,
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude,
+        });
+      },
+      (error) => console.log(error),
+      { enableHighAccuracy: true }
+    );
+  }, []);
 
   useEffect(() => {
     const getRoute = async () => {
@@ -49,7 +67,7 @@ export default function Navigate() {
         const loc2 = [120.9921407898388, 14.321070651256804];
 
         const response = await fetch(
-          `https://api.mapbox.com/directions/v5/mapbox/driving/${loc1[0]},${loc1[1]};${loc2[0]},${loc2[1]}?geometries=geojson&access_token=${token}`
+          `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${loc2[0]},${loc2[1]}?geometries=geojson&access_token=${token}`
         );
 
         const data = await response.json();
@@ -71,7 +89,7 @@ export default function Navigate() {
     >
       {routeData.length > 0 && (
         <>
-          <Marker latitude={routeData[0][1]} longitude={routeData[0][0]}>
+          <Marker latitude={viewport.latitude} longitude={viewport.longitude}>
             <div>Start</div>
           </Marker>
 
@@ -99,15 +117,15 @@ export default function Navigate() {
                 "line-cap": "round"
               }}
               paint={{
-                "line-color": "#888",
+                "line-color": "#0096FF",
                 "line-width": 8
               }}
             />
           </Source>
 
           <Popup
-            latitude={routeData[0][1]}
-            longitude={routeData[0][0]}
+            latitude={viewport.latitude}
+            longitude={viewport.longitude}
             closeButton={false}
             closeOnClick={false}
           >
