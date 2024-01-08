@@ -14,6 +14,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { useNavigate} from 'react-router-dom';
 
 // ICONS
 import { RiUserSearchFill } from "react-icons/ri";
@@ -33,6 +34,7 @@ interface Order {
     username: string;
     createdAt: string;
     updatedAt: string;
+    location?: number[];
     __v: number;
 }
 
@@ -41,7 +43,12 @@ export default function Orders() {
 
     
     const [customers, setCustomers] = useState<Order[]>([])
+    
 
+    const handleNavigate = () => {
+        const navigate = useNavigate();
+        navigate('/Navigate', {state: {customers: customers}});
+    }
     useEffect(() => {
         // GET ALL THE ORDERS
         // const getOrders = async () => {
@@ -111,6 +118,7 @@ export default function Orders() {
                     username: "joshuamagwili@gmail.com",
                     createdAt: "2023-12-15T10:34:30.490Z",
                     updatedAt: "2023-12-15T10:34:30.490Z",
+                    location : [120.95176195520145, 14.325773806431215],
                     __v: 0
                 }];
 
@@ -212,7 +220,7 @@ export default function Orders() {
             </section>
             <div>
                 <Link to="/Navigate/">
-                <Button>Start Navigation</Button>
+                <Button onClick={handleNavigate}>Start Navigation</Button>
                 </Link>
             </div>
             </div>
