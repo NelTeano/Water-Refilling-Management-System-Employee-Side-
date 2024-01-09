@@ -33,7 +33,7 @@ interface Order {
   username: string;
   createdAt: string;
   updatedAt: string;
-  location: {
+  location?: {
     longitude: number;
     latitude: number;
   };
@@ -54,15 +54,13 @@ export default function Orders() {
         }
 
         const result = await response.json();
-        if (result.location == true) {
-          setOrders(result);
-        }
+        setOrders(result);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     getOrders();
-  });
+  },[]);
 
   console.log(orders);
 
@@ -71,22 +69,24 @@ export default function Orders() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleRows, setVisibleRows] = useState(2);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 2;
+  const pageSize = 8;
 
   const [filteredCustomers, setFilteredCustomers] = useState(orders);
   const [searchTerm, setSearchTerm] = useState("");
 
   const totalPages = Math.ceil(filteredCustomers.length / pageSize);
 
-  useEffect(() => {
+ useEffect(() => {
+  if (orders.length > 0) {
     // Filter customers based on the search term
     const filtered = orders.filter((order) =>
-      order.username.toLowerCase().includes(searchTerm.toLowerCase())
+      order.username?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     setFilteredCustomers(filtered);
     setCurrentPage(1); // Reset page to 1 when search term changes
-  }, [searchTerm, orders]);
+  }
+}, [searchTerm, orders]);
 
   const handleNextClick = () => {
     if (currentPage < totalPages) {
