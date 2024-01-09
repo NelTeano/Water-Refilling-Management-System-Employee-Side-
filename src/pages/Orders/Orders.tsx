@@ -75,7 +75,9 @@ export default function Orders() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const totalPages = Math.ceil(filteredCustomers.length / pageSize);
-
+ useEffect(() => {
+    setFilteredCustomers(orders);
+  }, [orders]);
  useEffect(() => {
   if (orders.length > 0) {
     // Filter customers based on the search term
