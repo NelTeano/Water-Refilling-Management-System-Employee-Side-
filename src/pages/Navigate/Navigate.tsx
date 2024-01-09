@@ -93,71 +93,12 @@ export default function Navigate() {
           }));
         }}
         mapboxAccessToken={token}
-        dragPan={true}
+        interactive = {true}
+        scrollZoom={true}
       >
         {routeData.length > 0 && (
           <>
-            <Marker
-              latitude={latitude}
-              longitude={longitude}
-              offset={[0, -20]}
-            >
-              <div>
-                <FaLocationDot
-                  style={{
-                    height: "40px",
-                    width: "auto",
-                    color: "blue",
-                  }}
-                />
-              </div>
-            </Marker>
-
-            <Marker
-              latitude={loc2[1]}
-              longitude={loc2[0]}
-              offset={[0, -20]}
-            >
-              <div>
-                <FaLocationDot
-                  style={{
-                    height: "40px",
-                    width: "auto",
-                    color: "blue",
-                  }}
-                />
-              </div>
-            </Marker>
-            <Marker
-              latitude={loc3[1]}
-              longitude={loc3[0]}
-              offset={[0, -20]}
-            >
-              <div>
-                <FaLocationDot
-                  style={{
-                    height: "40px",
-                    width: "auto",
-                    color: "blue",
-                  }}
-                />
-              </div>
-            </Marker>
-            <Marker
-             latitude={loc4[1]}
-             longitude={loc4[0]}
-              offset={[0, -20]}
-            >
-              <div>
-                <FaLocationDot
-                  style={{
-                    height: "40px",
-                    width: "auto",
-                    color: "blue",
-                  }}
-                />
-              </div>
-            </Marker>
+          
 
             <NavigationControl showZoom position="top-right" />
 
