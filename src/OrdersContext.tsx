@@ -1,8 +1,24 @@
-import React, { createContext, useContext, useState, FC, ReactNode, useEffect } from "react";
-
+import React, { createContext, useContext, useState, FC, ReactNode } from "react";
+interface Order {
+    _id: string;
+    round: number;
+    slim: number;
+    total: number;
+    isOwned: boolean;
+    status: string;
+    username: string;
+    createdAt: string;
+    updatedAt: string;
+    location?: {
+      longitude: number;
+      latitude: number;
+    };
+    __v: number;
+  }
+  
 interface OrdersContextProps {
-  orders: any[]; // Update the type accordingly
-  setOrders: React.Dispatch<React.SetStateAction<any[]>>; // Update the type accordingly
+  orders: Order[]; // Update to match your Order structure
+  setOrders: React.Dispatch<React.SetStateAction<Order[]>>;
 }
 
 const OrdersContext = createContext<OrdersContextProps | undefined>(undefined);
@@ -20,27 +36,8 @@ interface OrdersProviderProps {
 }
 
 export const OrdersProvider: FC<OrdersProviderProps> = ({ children }) => {
-  const [orders, setOrders] = useState<any[]>([]); // Update the type accordingly
-  useEffect(() => {
-    // GET ALL THE ORDERS
-    const getOrders = async () => {
-      try {
-        const response = await fetch(`http://localhost:5174/api/orders`);
+  const [orders, setOrders] = useState<Order[]>([]); // Using the Order type
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        setOrders(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    getOrders();
-  },[]);
-
-  console.log(orders);
   return (
     <OrdersContext.Provider value={{ orders, setOrders }}>
       {children}

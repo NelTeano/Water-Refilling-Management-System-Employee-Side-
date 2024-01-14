@@ -8,12 +8,12 @@ OrderRoutes.get('/orders', async (req, res)=>{
     try {
         
         const getOrders = await orderModel.find({"location":{"$exists": true}});
-        res.send(getOrders);
+        res.json(getOrders);
         console.log("Successfully get the Orders")
         
     } catch (error) {
         res.status(500).json({ message: "Fetch Orders Failed " , error });
-        console.log("Fetch Orders")
+        console.log(error);
     }
 });
 

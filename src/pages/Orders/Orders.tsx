@@ -23,6 +23,7 @@ import { MdDeliveryDining } from "react-icons/md";
 import "./Orders.css";
 import { Link } from "react-router-dom";
 
+import {useOrders} from "../../OrdersContext"
 interface Order {
   _id: string;
   round: number;
@@ -41,28 +42,10 @@ interface Order {
 }
 
 export default function Orders() {
+
+  //const [orders, setOrders] = useOrders();
+
   const [orders, setOrders] = useState<Order[]>([]);
-
-  useEffect(() => {
-    // GET ALL THE ORDERS
-    const getOrders = async () => {
-      try {
-        const response = await fetch(`http://localhost:5174/api/orders`);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        setOrders(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    getOrders();
-  },[]);
-
-  console.log(orders);
 
   // --------------PAGING AND SEARCH FUNCTIONS----------------
 
@@ -71,17 +54,32 @@ export default function Orders() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
 
-  const [filteredCustomers, setFilteredCustomers] = useState(orders);
+  const [filteredCustomers, setFilteredCustomers] = useState<Order[]>(orders);
   const [searchTerm, setSearchTerm] = useState("");
 
   const totalPages = Math.ceil(filteredCustomers.length / pageSize);
+  useEffect(()=>{
+    const getOrders = async () => {
+      try {
+        const response = await fetch('http://localhost:5174/api/orders');
+        const data = await response.json();
+        console.log(data);
+        setOrders(data);
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+    };
+  
+    getOrders();
+    
+  },[])
  useEffect(() => {
     setFilteredCustomers(orders);
   }, [orders]);
  useEffect(() => {
   if (orders.length > 0) {
     // Filter customers based on the search term
-    const filtered = orders.filter((order) =>
+    const filtered = orders.filter((order: Order) =>
       order.username?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
