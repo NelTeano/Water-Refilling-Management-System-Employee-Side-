@@ -29,7 +29,7 @@ export default function Navigate() {
     longitude: 120.99311440171681,
     zoom: 16,
   });
-
+  const [orders, setOrders] = useState([])
   const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
     type: "FeatureCollection",
     features: [
@@ -79,7 +79,22 @@ export default function Navigate() {
 
     getRoute();
   }, []);
-
+  useEffect(()=>{
+    const getOrders = async () => {
+      try {
+        const response = await fetch('http://localhost:5174/api/orders');
+        const data = await response.json();
+        
+        setOrders(data);
+        console.log("orders: ", orders)
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+    };
+  
+    getOrders();
+    
+  },[])
   return (
     <div className="directions-container">
       <ReactMapGL
