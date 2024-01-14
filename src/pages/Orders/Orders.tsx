@@ -34,11 +34,11 @@ interface Order {
   username: string;
   createdAt: string;
   updatedAt: string;
-  location?: {
+  location: {
     longitude: number;
     latitude: number;
   };
-  __v: number;
+ 
 }
 
 export default function Orders() {

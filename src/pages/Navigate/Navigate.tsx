@@ -33,18 +33,17 @@ interface Order {
     longitude: number;
     latitude: number;
   };
- 
 }
 export default function Navigate() {
   const [routeData, setRouteData] = useState([]);
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
   const [viewport, setViewport] = useState<Viewport>({
-    latitude: 14.32013590771544,
-    longitude: 120.99311440171681,
+    latitude: 14.242677096111422,
+    longitude: 120.96215109424094,
     zoom: 16,
   });
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState<Order[]>([]);
   const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
     type: "FeatureCollection",
     features: [
@@ -80,11 +79,15 @@ export default function Navigate() {
   useEffect(() => {
     const getRoute = async () => {
       try {
-        const orderResponse = await fetch('http://localhost:5174/api/orders');
+        const orderResponse = await fetch("http://localhost:5174/api/orders");
         const orderData = await orderResponse.json();
-        const orderLocations = orderData.map((order: Order) => [order.location.longitude, order.location.latitude]);
+        setOrders(orderData);
+        const orderLocations = orderData.map((order: Order) => [
+          order.location.longitude,
+          order.location.latitude,
+        ]);
         const response = await fetch(
-          `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${orderLocations.join(';')}?geometries=geojson&access_token=${token}`
+          `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${orders[1].location.longitude},${orders[1].location.latitude}?geometries=geojson&access_token=${token}`
         );
 
         const data = await response.json();
@@ -110,20 +113,20 @@ export default function Navigate() {
           }));
         }}
         mapboxAccessToken={token}
-        interactive = {true}
+        interactive={true}
         scrollZoom={true}
       >
         {routeData.length > 0 && (
           <>
-          
-
-            <NavigationControl showZoom position="top-right" />
-
             <GeolocateControl
               positionOptions={{ enableHighAccuracy: true }}
               trackUserLocation={true}
             />
-
+            <Marker latitude={latitude} longitude={longitude}>
+             
+              <FaLocationDot color="blue" size={40} />
+            </Marker>
+            <NavigationControl showZoom position="top-right" />
             <Source id="route" type="geojson" data={geojson}>
               <Layer
                 id="route"
