@@ -73,21 +73,20 @@ export default function Navigate() {
       { enableHighAccuracy: true }
     );
   }, []);
-  const loc2 = [120.9921407898388, 14.321070651256804];
-  const loc3 = [120.9933358393086, 14.321578086729374];
-  const loc4 = [120.99522663682114, 14.32047710054286];
+ 
   useEffect(() => {
     const getRoute = async () => {
       try {
         const orderResponse = await fetch("http://localhost:5174/api/orders");
         const orderData = await orderResponse.json();
         setOrders(orderData);
+        console.log(orders)
         const orderLocations = orderData.map((order: Order) => [
           order.location.longitude,
           order.location.latitude,
         ]);
         const response = await fetch(
-          `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${orders[1].location.longitude},${orders[1].location.latitude}?geometries=geojson&access_token=${token}`
+          `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${orderLocations.join(';')}?geometries=geojson&access_token=${token}`
         );
 
         const data = await response.json();
