@@ -19,7 +19,22 @@ interface Viewport {
   longitude: number;
   zoom: number;
 }
-
+interface Order {
+  _id: string;
+  round: number;
+  slim: number;
+  total: number;
+  isOwned: boolean;
+  status: string;
+  username: string;
+  createdAt: string;
+  updatedAt: string;
+  location: {
+    longitude: number;
+    latitude: number;
+  };
+ 
+}
 export default function Navigate() {
   const [routeData, setRouteData] = useState([]);
   const [latitude, setLatitude] = useState<number>(0);
@@ -65,9 +80,11 @@ export default function Navigate() {
   useEffect(() => {
     const getRoute = async () => {
       try {
-        
+        const orderResponse = await fetch('http://localhost:5174/api/orders');
+        const orderData = await orderResponse.json();
+        const orderLocations = orderData.map((order: Order) => [order.location.longitude, order.location.latitude]);
         const response = await fetch(
-          `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${loc2[0]},${loc2[1]};${loc3[0]},${loc3[1]};${loc4[0]},${loc4[1]}?geometries=geojson&access_token=${token}`
+          `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${orderLocations.join(';')}?geometries=geojson&access_token=${token}`
         );
 
         const data = await response.json();
@@ -79,22 +96,7 @@ export default function Navigate() {
 
     getRoute();
   }, []);
-  useEffect(()=>{
-    const getOrders = async () => {
-      try {
-        const response = await fetch('http://localhost:5174/api/orders');
-        const data = await response.json();
-        
-        setOrders(data);
-        console.log("orders: ", orders)
-      } catch (error) {
-        console.error('Error fetching orders:', error);
-      }
-    };
-  
-    getOrders();
-    
-  },[])
+
   return (
     <div className="directions-container">
       <ReactMapGL
