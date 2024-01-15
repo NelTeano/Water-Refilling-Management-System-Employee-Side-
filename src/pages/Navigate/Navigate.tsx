@@ -11,6 +11,7 @@ import ReactMapGL, {
 import { useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
+import { sampleOrders } from "./mockData.ts";
 const token =
   "pk.eyJ1Ijoiam1hZ3dpbGkiLCJhIjoiY2xwaGZwaHh0MDJtOTJqbzVkanpvYjRkNSJ9.fZFeViJyigw6k1ebFAbTYA";
 
@@ -20,7 +21,7 @@ interface Viewport {
   zoom: number;
 }
 interface Order {
-  _id: string;
+  _id?: string;
   round: number;
   slim: number;
   total: number;
@@ -32,6 +33,7 @@ interface Order {
   location: {
     longitude: number;
     latitude: number;
+    address?: string;
   };
 }
 export default function Navigate() {
@@ -41,9 +43,71 @@ export default function Navigate() {
   const [viewport, setViewport] = useState<Viewport>({
     latitude: 14.242677096111422,
     longitude: 120.96215109424094,
-    zoom: 16,
+    zoom: 14,
   });
   const [orders, setOrders] = useState<Order[]>([]);
+  // const [sampleOrders, setSampleOrders] = useState<Order[]>([
+  //   {
+  //     round: 1,
+  //     slim: 0,
+  //     total: 30,
+  //     isOwned: true,
+  //     status: "for delivery",
+  //     username: "jonel.teano@cvsu.edu.ph",
+  //     location: {
+  //       longitude: 120.9589699,
+  //       latitude: 14.2990183,
+  //       address: "BrentHood Tropical Village",
+  //     },
+  //     createdAt: "2024-01-10T14:29:47.017Z",
+  //     updatedAt: "2024-01-10T14:29:47.017Z",
+  //   },
+  //   {
+  //     round: 1,
+  //     slim: 0,
+  //     total: 30,
+  //     isOwned: true,
+  //     status: "for delivery",
+  //     username: "jonel.teano@cvsu.edu.ph",
+  //     location: {
+  //       longitude: 120.9589699,
+  //       latitude: 14.2990183,
+  //       address: "BrentHood Tropical Village",
+  //     },
+  //     createdAt: "2024-01-10T14:29:47.017Z",
+  //     updatedAt: "2024-01-10T14:29:47.017Z",
+  //   },
+  //   {
+  //     round: 1,
+  //     slim: 0,
+  //     total: 30,
+  //     isOwned: true,
+  //     status: "for delivery",
+  //     username: "jonel.teano@cvsu.edu.ph",
+  //     location: {
+  //       longitude: 120.9589699,
+  //       latitude: 14.2990183,
+  //       address: "BrentHood Tropical Village",
+  //     },
+  //     createdAt: "2024-01-10T14:29:47.017Z",
+  //     updatedAt: "2024-01-10T14:29:47.017Z",
+  //   },
+  //   {
+  //     round: 1,
+  //     slim: 0,
+  //     total: 30,
+  //     isOwned: true,
+  //     status: "for delivery",
+  //     username: "jonel.teano@cvsu.edu.ph",
+  //     location: {
+  //       longitude: 120.9589699,
+  //       latitude: 14.2990183,
+  //       address: "BrentHood Tropical Village",
+  //     },
+  //     createdAt: "2024-01-10T14:29:47.017Z",
+  //     updatedAt: "2024-01-10T14:29:47.017Z",
+  //   },
+  // ]);
   const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
     type: "FeatureCollection",
     features: [
@@ -73,22 +137,28 @@ export default function Navigate() {
       { enableHighAccuracy: true }
     );
   }, []);
- 
+
   useEffect(() => {
     const getRoute = async () => {
       try {
+        console.log("fetching orders");
         const orderResponse = await fetch("http://localhost:5174/api/orders");
         const orderData = await orderResponse.json();
         setOrders(orderData);
-        console.log(orders)
+        console.log(orders);
         const orderLocations = orderData.map((order: Order) => [
           order.location.longitude,
           order.location.latitude,
         ]);
+        console.log("fetching route");
         const response = await fetch(
-          `https://api.mapbox.com/directions/v5/mapbox/driving/${viewport.longitude},${viewport.latitude};${orderLocations.join(';')}?geometries=geojson&access_token=${token}`
+          `https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${
+            viewport.longitude
+          },${viewport.latitude};${orderLocations.join(
+            ";"
+          )}?geometries=geojson&access_token=${token}`
         );
-
+        console.log("fetched route");
         const data = await response.json();
         setRouteData(data.routes[0].geometry.coordinates);
       } catch (err) {
@@ -122,7 +192,6 @@ export default function Navigate() {
               trackUserLocation={true}
             />
             <Marker latitude={latitude} longitude={longitude}>
-             
               <FaLocationDot color="blue" size={40} />
             </Marker>
             <NavigationControl showZoom position="top-right" />
