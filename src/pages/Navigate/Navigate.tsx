@@ -76,7 +76,8 @@ export default function Navigate() {
       { enableHighAccuracy: true }
     );
   }, []);
-
+ const startLoc = [120.97848290128735,
+  14.24044706931592]
   useEffect(() => {
     const getRoute = async () => {
       try {
@@ -92,8 +93,8 @@ export default function Navigate() {
         console.log("fetching route");
         const response = await fetch(
           `https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${
-            viewport.longitude
-          },${viewport.latitude};${orderLocations.join(
+            startLoc[0]
+          },${startLoc[1]};${orderLocations.join(
             ";"
           )}?geometries=geojson&access_token=${token}`
         );
@@ -130,9 +131,16 @@ export default function Navigate() {
               positionOptions={{ enableHighAccuracy: true }}
               trackUserLocation={true}
             />
-            <Marker latitude={latitude} longitude={longitude}>
-              <FaLocationDot color="blue" size={40} />
+            {/* { starting location} */}
+            <Marker latitude={startLoc[1]} longitude={startLoc[0]}>
+              <FaLocationDot color="red" size={40} />
             </Marker>
+            {sampleOrders.map((order, index)=> (
+              <Marker key={index} latitude={order.location.latitude} longitude={order.location.longitude}>
+                  <FaLocationDot color="blue" size={40} />
+              </Marker>
+            ))}
+
             <NavigationControl showZoom position="top-right" />
             <Source id="route" type="geojson" data={geojson}>
               <Layer
