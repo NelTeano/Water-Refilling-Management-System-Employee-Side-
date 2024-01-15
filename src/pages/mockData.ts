@@ -18,21 +18,6 @@ export interface sampleOrder {
 }
 
 export const sampleOrders: sampleOrder[] = [
-  // {
-  //   round: 1,
-  //   slim: 0,
-  //   total: 30,
-  //   isOwned: true,
-  //   status: "for delivery",
-  //   username: "jonel.teano@cvsu.edu.ph",
-  //   location: {
-  //     longitude: 120.97484759419729,
-  //     latitude: 14.237759226890873,
-  //     address: "BrentHood Tropical Village",
-  //   },
-  //   createdAt: "2024-01-10T14:29:47.017Z",
-  //   updatedAt: "2024-01-10T14:29:47.017Z",
-  // },
   {
     round: 1,
     slim: 0,
@@ -41,13 +26,28 @@ export const sampleOrders: sampleOrder[] = [
     status: "for delivery",
     username: "jonel.teano@cvsu.edu.ph",
     location: {
-      longitude: 120.97259251526805,
+      longitude: 120.97484759419729,
       latitude: 14.237759226890873,
       address: "BrentHood Tropical Village",
     },
     createdAt: "2024-01-10T14:29:47.017Z",
     updatedAt: "2024-01-10T14:29:47.017Z",
   },
+  // {
+  //   round: 1,
+  //   slim: 0,
+  //   total: 30,
+  //   isOwned: true,
+  //   status: "for delivery",
+  //   username: "jonel.teano@cvsu.edu.ph",
+  //   location: {
+  //     longitude: 120.97259251526805,
+  //     latitude: 14.237759226890873,
+  //     address: "BrentHood Tropical Village",
+  //   },
+  //   createdAt: "2024-01-10T14:29:47.017Z",
+  //   updatedAt: "2024-01-10T14:29:47.017Z",
+  // },
   {
     round: 1,
     slim: 0,

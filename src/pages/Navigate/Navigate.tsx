@@ -37,12 +37,14 @@ interface Order {
   };
 }
 export default function Navigate() {
+  const startLoc = [120.97848290128735,
+    14.24044706931592]
   const [routeData, setRouteData] = useState([]);
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
   const [viewport, setViewport] = useState<Viewport>({
-    latitude: 14.242677096111422,
-    longitude: 120.96215109424094,
+    latitude: startLoc[1],
+    longitude: startLoc[0],
     zoom: 16,
   });
   const [orders, setOrders] = useState<Order[]>([]);
@@ -66,18 +68,17 @@ export default function Navigate() {
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
         console.log(latitude, longitude);
-        setViewport({
-          ...viewport,
-          longitude: position.coords.longitude,
-          latitude: position.coords.latitude,
-        });
+        // setViewport({
+        //   ...viewport,
+        //   longitude: position.coords.longitude,
+        //   latitude: position.coords.latitude,
+        // });
       },
       (error) => console.log(error),
       { enableHighAccuracy: true }
     );
   }, []);
- const startLoc = [120.97848290128735,
-  14.24044706931592]
+
   useEffect(() => {
     const getRoute = async () => {
       try {
@@ -121,6 +122,7 @@ export default function Navigate() {
             latitude: e.viewState.latitude,
           }));
         }}
+        
         mapboxAccessToken={token}
         interactive={true}
         scrollZoom={true}
