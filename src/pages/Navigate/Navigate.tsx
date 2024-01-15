@@ -11,7 +11,7 @@ import ReactMapGL, {
 import { useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
-import { sampleOrders } from "../mockData.ts";
+import { sampleOrders, sampleOrder } from "../mockData.ts";
 const token =
   "pk.eyJ1Ijoiam1hZ3dpbGkiLCJhIjoiY2xwaGZwaHh0MDJtOTJqbzVkanpvYjRkNSJ9.fZFeViJyigw6k1ebFAbTYA";
 
@@ -43,7 +43,7 @@ export default function Navigate() {
   const [viewport, setViewport] = useState<Viewport>({
     latitude: 14.242677096111422,
     longitude: 120.96215109424094,
-    zoom: 14,
+    zoom: 16,
   });
   const [orders, setOrders] = useState<Order[]>([]);
   
@@ -85,7 +85,7 @@ export default function Navigate() {
         const orderData = await orderResponse.json();
         setOrders(orderData);
         console.log(orders);
-        const orderLocations = orderData.map((order: Order) => [
+        const orderLocations = sampleOrders.map((order: Order) => [
           order.location.longitude,
           order.location.latitude,
         ]);
