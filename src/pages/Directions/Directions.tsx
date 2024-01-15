@@ -16,7 +16,7 @@ export default function Dashboard() {
     const getOwnerDetails = async () => {
       try {
         const orderOwner = await fetch(
-          `http://localhost:5174/api/users/${CustId.username}`
+          `http://localhost:5001/api/users/${CustId.username}`
         );
 
         if (!orderOwner.ok) {

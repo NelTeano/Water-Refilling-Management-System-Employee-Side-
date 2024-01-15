@@ -83,7 +83,7 @@ export default function Navigate() {
     const getRoute = async () => {
       try {
         console.log("fetching orders");
-        const orderResponse = await fetch("http://localhost:5174/api/orders");
+        const orderResponse = await fetch("http://localhost:5001/api/orders");
         const orderData = await orderResponse.json();
         setOrders(orderData);
         console.log(orders);

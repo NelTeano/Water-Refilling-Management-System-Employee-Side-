@@ -62,7 +62,7 @@ export default function Orders() {
   useEffect(()=>{
     const getOrders = async () => {
       try {
-        const response = await fetch('http://localhost:5174/api/orders');
+        const response = await fetch('http://localhost:5001/api/orders');
         const data = await response.json();
         console.log(data);
         setOrders(data);
@@ -129,7 +129,7 @@ export default function Orders() {
                 <TableHead>Total</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Date</TableHead>
-                <TableHead>Directions</TableHead>
+                {/* <TableHead>Directions</TableHead> */}
               </TableRow>
             </TableHeader>
             <TableBody>

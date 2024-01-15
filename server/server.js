@@ -13,7 +13,7 @@ const app = express();
 dotenv.config();  
 initDatabase();
 
-const PORT = 5174;
+const PORT = 5001;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
@@ -21,8 +21,8 @@ app.listen(PORT, () => {
 });
 app.use(cors({
     origin: [
-        'http://localhost:5173',
-        'http://127.0.0.1:5173'
+        'http://localhost:5000',
+        'http://127.0.0.1:5000'
     ],  // THE HTTP(ORIGIN) THAT WILL ALLOW TO ACCESS THE ROUTES
     credentials: true,
 }));
