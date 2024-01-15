@@ -22,6 +22,7 @@ import { MdDeliveryDining } from "react-icons/md";
 
 import "./Orders.css";
 import { Link } from "react-router-dom";
+import { sampleOrders, sampleOrder } from "../mockData";
 
 import {useOrders} from "../../OrdersContext"
 interface Order {
@@ -54,7 +55,7 @@ export default function Orders() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
 
-  const [filteredCustomers, setFilteredCustomers] = useState<Order[]>(orders);
+  const [filteredCustomers, setFilteredCustomers] = useState<sampleOrder[]>(orders);
   const [searchTerm, setSearchTerm] = useState("");
 
   const totalPages = Math.ceil(filteredCustomers.length / pageSize);
@@ -79,7 +80,7 @@ export default function Orders() {
  useEffect(() => {
   if (orders.length > 0) {
     // Filter customers based on the search term
-    const filtered = orders.filter((order: Order) =>
+    const filtered = sampleOrders.filter((order) =>
       order.username?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -153,9 +154,7 @@ export default function Orders() {
                     </TableCell>
                     <TableCell>
                       <Link to={`/Directions/${order._id}/${order.username}`}>
-                        <Button>
-                          <MdDeliveryDining className="direction-icon" />
-                        </Button>
+                        
                       </Link>
                     </TableCell>
                   </TableRow>

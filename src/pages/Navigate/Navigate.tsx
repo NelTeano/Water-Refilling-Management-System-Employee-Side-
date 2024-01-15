@@ -11,7 +11,7 @@ import ReactMapGL, {
 import { useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
-import { sampleOrders } from "./mockData.ts";
+import { sampleOrders } from "../mockData.ts";
 const token =
   "pk.eyJ1Ijoiam1hZ3dpbGkiLCJhIjoiY2xwaGZwaHh0MDJtOTJqbzVkanpvYjRkNSJ9.fZFeViJyigw6k1ebFAbTYA";
 
@@ -46,68 +46,7 @@ export default function Navigate() {
     zoom: 14,
   });
   const [orders, setOrders] = useState<Order[]>([]);
-  // const [sampleOrders, setSampleOrders] = useState<Order[]>([
-  //   {
-  //     round: 1,
-  //     slim: 0,
-  //     total: 30,
-  //     isOwned: true,
-  //     status: "for delivery",
-  //     username: "jonel.teano@cvsu.edu.ph",
-  //     location: {
-  //       longitude: 120.9589699,
-  //       latitude: 14.2990183,
-  //       address: "BrentHood Tropical Village",
-  //     },
-  //     createdAt: "2024-01-10T14:29:47.017Z",
-  //     updatedAt: "2024-01-10T14:29:47.017Z",
-  //   },
-  //   {
-  //     round: 1,
-  //     slim: 0,
-  //     total: 30,
-  //     isOwned: true,
-  //     status: "for delivery",
-  //     username: "jonel.teano@cvsu.edu.ph",
-  //     location: {
-  //       longitude: 120.9589699,
-  //       latitude: 14.2990183,
-  //       address: "BrentHood Tropical Village",
-  //     },
-  //     createdAt: "2024-01-10T14:29:47.017Z",
-  //     updatedAt: "2024-01-10T14:29:47.017Z",
-  //   },
-  //   {
-  //     round: 1,
-  //     slim: 0,
-  //     total: 30,
-  //     isOwned: true,
-  //     status: "for delivery",
-  //     username: "jonel.teano@cvsu.edu.ph",
-  //     location: {
-  //       longitude: 120.9589699,
-  //       latitude: 14.2990183,
-  //       address: "BrentHood Tropical Village",
-  //     },
-  //     createdAt: "2024-01-10T14:29:47.017Z",
-  //     updatedAt: "2024-01-10T14:29:47.017Z",
-  //   },
-  //   {
-  //     round: 1,
-  //     slim: 0,
-  //     total: 30,
-  //     isOwned: true,
-  //     status: "for delivery",
-  //     username: "jonel.teano@cvsu.edu.ph",
-  //     location: {
-  //       longitude: 120.9589699,
-  //       latitude: 14.2990183,
-  //       address: "BrentHood Tropical Village",
-  //     },
-  //     createdAt: "2024-01-10T14:29:47.017Z",
-  //     updatedAt: "2024-01-10T14:29:47.017Z",
-  //   },
-  // ]);
+  
   const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
     type: "FeatureCollection",
     features: [
