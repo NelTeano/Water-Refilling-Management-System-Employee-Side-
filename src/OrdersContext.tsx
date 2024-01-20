@@ -13,7 +13,6 @@ interface Order {
       longitude: number;
       latitude: number;
     };
-    __v: number;
   }
   
 interface OrdersContextProps {

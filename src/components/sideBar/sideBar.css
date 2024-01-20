@@ -1,4 +1,5 @@
-nav{
+/* Add box-shadow to the nav style */
+nav {
     width: 20%;
     position: fixed;
     top: 0;
@@ -10,18 +11,18 @@ nav{
     gap: 20px;
     padding: 10px;
     padding-top: 120px;
-    background-color: #101a33;
+    background-color: #ffffff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 10); /* Add this line for box-shadow */
 }
 
-
-nav div h2{
+nav div h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #1a2342;
+    background-color: #34ACAC; /* Updated background color */
     font-size: 25px;
     font-weight: 700;
-    color: #34ACAC;
+    color: #ffffff; /* Updated text color */
     position: absolute;
     top: 0;
     left: 0;
@@ -29,30 +30,29 @@ nav div h2{
     height: 80px;
 }
 
-nav button{
+nav button {
     background-color: inherit;
     font-size: 15px;
     gap: 15px;
     display: flex;
     justify-content: flex-start;
     width: 200px;
+    color: #767e95; 
 }
 
-
-.sidebar-icons{
+.sidebar-icons {
     font-size: 20px;
     color: #767e95;
 }
 
-
-.sidebar-logout{
+.sidebar-logout {
     position: absolute;
     bottom: 20px;
     width: 90%;
 }
 
 @media (max-width: 1024px) {
-    .sidebar{
+    .sidebar {
         display: none;
     }
 }

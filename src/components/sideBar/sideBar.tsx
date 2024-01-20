@@ -18,9 +18,9 @@ export default function sideBar() {
         <>
             <nav className='sidebar'>
                 <div><h2>Hydro<span>Maze</span></h2></div>         
-                <Link to={'/Orders'}><Button><FaShoppingCart className="sidebar-icons"/>Orders</Button></Link>
-                <Link to={'/Locations'}><Button><LiaSearchLocationSolid className="sidebar-icons"/>Locations</Button></Link>
-                <Button className="sidebar-logout"><IoLogOut className="sidebar-icons"/>Log Out</Button>
+                <Link to={'/Orders'}><Button variant="link" ><FaShoppingCart className="sidebar-icons"/>Orders</Button></Link>
+                <Link to={'/Locations'}><Button variant="link"><LiaSearchLocationSolid className="sidebar-icons"/>Locations</Button></Link>
+                <Button className="sidebar-logout" variant="link"><IoLogOut className="sidebar-icons"/>Log Out</Button>
             </nav>
         </>
     )
