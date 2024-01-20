@@ -70,7 +70,7 @@
   }
 
 
-  @media (max-width: 1150px) {
+  @media (max-width: 1024px) {
 
     .bm-burger-button{
       display: block;

@@ -53,7 +53,7 @@ export default function Orders() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [visibleRows, setVisibleRows] = useState(2);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 8;
+  const pageSize = 4;
 
   const [filteredCustomers, setFilteredCustomers] = useState<sampleOrder[]>(orders);
   const [searchTerm, setSearchTerm] = useState("");
@@ -119,7 +119,8 @@ export default function Orders() {
           </span>
         </section>
         <div>
-          <Table className="order-table">
+          
+          <Table className="order-table" id="order-table-desktop">
             <TableCaption>A list of Orders</TableCaption>
             <TableHeader>
               <TableRow>
@@ -161,6 +162,33 @@ export default function Orders() {
                 ))}
             </TableBody>
           </Table>
+
+{/*  --------------------------Renders only when in mobile --------------- */}
+
+          <Table className='order-table' id='order-table-mobile'>
+              <TableCaption>A list of Orders</TableCaption>
+              <TableBody>
+                  {filteredCustomers.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((customer, index) => (
+                  <div key={index} className="mb-4">
+                      <div className="mb-2"><strong>Name :</strong> {customer.username}</div>
+                      <div><strong>Slim :</strong> {customer.slim}</div>
+                      <div><strong>Round :</strong> {customer.round}</div>
+                      <div><strong>Total :</strong> ₱{customer.total}</div>
+                      <div><strong>Status :</strong> {customer.status}</div>
+                      <div><strong>Date :</strong> {format(new Date(customer.createdAt), 'MMMM d, yyyy  h:mm a')}</div>
+                      <div><strong>Mark as Done :</strong></div>
+                      <div className="text-right">
+                          <Button>
+                              <MdDeliveryDining className="direction-icon"/>
+                          </Button>
+                      </div>
+                  </div>
+                  ))}
+              </TableBody>
+          </Table>
+{/*  ----------------------------------------------------------------------*/}
+
+
         </div>
         <section className="orders-pageButtons">
           <Button onClick={handlePrevClick}>Previous</Button>
