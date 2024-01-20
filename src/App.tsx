@@ -6,7 +6,7 @@ import Home from './pages/Home/Home'
 import Orders from './pages/Orders/Orders';
 import Locations from './pages/Locations/Locations';
 import Directions from './pages/Directions/Directions';
-
+import Navigate from './pages/Navigate/Navigate.tsx';
 // COMPONENTS
 import Navbar from './components/sideBar/sideBar';
 import Hamburger from './components/hamburgerMenu/Hamburger'
@@ -22,8 +22,8 @@ function App() {
   
   const routes = [
     {
-      pathname: "/Directions",
-      element: Home
+      pathname: "/Navigate",
+      element: Navigate
     },
     {
       pathname: "/Orders",
