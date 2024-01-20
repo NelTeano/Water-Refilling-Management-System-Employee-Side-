@@ -51,7 +51,7 @@ nav button{
     width: 90%;
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1024px) {
     .sidebar{
         display: none;
     }
