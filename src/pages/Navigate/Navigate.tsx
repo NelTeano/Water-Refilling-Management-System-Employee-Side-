@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
 import { sampleOrders, sampleOrder } from "../mockData.ts";
+import MarkerModal from "@/components/MarkerModal.tsx";
 const token =
   "pk.eyJ1Ijoiam1hZ3dpbGkiLCJhIjoiY2xwaGZwaHh0MDJtOTJqbzVkanpvYjRkNSJ9.fZFeViJyigw6k1ebFAbTYA";
 
@@ -37,8 +38,7 @@ interface Order {
   };
 }
 export default function Navigate() {
-  const startLoc = [120.97848290128735,
-    14.24044706931592]
+  const startLoc = [120.97848290128735, 14.24044706931592];
   const [routeData, setRouteData] = useState([]);
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
@@ -48,7 +48,8 @@ export default function Navigate() {
     zoom: 16,
   });
   const [orders, setOrders] = useState<Order[]>([]);
-  const[selectedOrder, setSelectedOrder] = useState<Order[]>([]);
+  const [selectedOrder, setSelectedOrder] = useState<Order>();
+  const [showModal, setShowModal] = useState(false);
   const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
     type: "FeatureCollection",
     features: [
@@ -110,10 +111,11 @@ export default function Navigate() {
     getRoute();
   }, []);
   const handleMarkerClick = (order: Order) => {
+    console.log("Marker clicked:", order);
     setSelectedOrder(order);
     setShowModal(true);
   };
-  
+
   return (
     <div className="directions-container">
       <ReactMapGL
@@ -126,7 +128,6 @@ export default function Navigate() {
             latitude: e.viewState.latitude,
           }));
         }}
-        
         mapboxAccessToken={token}
         interactive={true}
         scrollZoom={true}
@@ -141,11 +142,18 @@ export default function Navigate() {
             <Marker latitude={startLoc[1]} longitude={startLoc[0]}>
               <FaLocationDot color="red" size={40} />
             </Marker>
-            {sampleOrders.map((order, index)=> (
-              <Marker key={index} latitude={order.location.latitude} longitude={order.location.longitude}>
-                  <FaLocationDot color="blue" size={40} />
+
+            {sampleOrders.map((order, index) => (
+              <Marker
+                key={index}
+                latitude={order.location.latitude}
+                longitude={order.location.longitude}
+                onClick={() => handleMarkerClick(order)}
+              >
+                <FaLocationDot color="blue" size={40} />
               </Marker>
             ))}
+            {showModal && selectedOrder && <MarkerModal order={selectedOrder} onClose={() => setShowModal(false)} />}
 
             <NavigationControl showZoom position="top-right" />
             <Source id="route" type="geojson" data={geojson}>
