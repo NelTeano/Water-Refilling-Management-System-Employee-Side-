@@ -48,7 +48,7 @@ export default function Navigate() {
     zoom: 16,
   });
   const [orders, setOrders] = useState<Order[]>([]);
-  
+  const[selectedOrder, setSelectedOrder] = useState<Order[]>([]);
   const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
     type: "FeatureCollection",
     features: [
@@ -109,7 +109,11 @@ export default function Navigate() {
 
     getRoute();
   }, []);
-
+  const handleMarkerClick = (order: Order) => {
+    setSelectedOrder(order);
+    setShowModal(true);
+  };
+  
   return (
     <div className="directions-container">
       <ReactMapGL

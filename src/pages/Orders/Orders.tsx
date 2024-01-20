@@ -191,8 +191,8 @@ export default function Orders() {
 
         </div>
         <section className="orders-pageButtons">
-          <Button onClick={handlePrevClick}>Previous</Button>
-          <Button onClick={handleNextClick}>Next</Button>
+          <Button variant="ghost" onClick={handlePrevClick}>Previous</Button>
+          <Button variant="ghost" onClick={handleNextClick}>Next</Button>
         </section>
         <div>
           <Link to="/Navigate/">

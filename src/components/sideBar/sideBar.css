@@ -12,17 +12,17 @@ nav {
     padding: 10px;
     padding-top: 120px;
     background-color: #ffffff;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 10); /* Add this line for box-shadow */
+    box-shadow: 10px 0 100px rgba(0, 0, 0, 10); 
 }
 
 nav div h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #34ACAC; /* Updated background color */
+    background-color: #34ACAC; 
     font-size: 25px;
     font-weight: 700;
-    color: #ffffff; /* Updated text color */
+    color: #ffffff; 
     position: absolute;
     top: 0;
     left: 0;
