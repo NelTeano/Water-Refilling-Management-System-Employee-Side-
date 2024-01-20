@@ -1,13 +1,28 @@
 .home-container{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 40px;
     align-items: center;
-    position: relative;
-    background-color: white;
-    gap: 30px;
-    left: 20%;
-    top: 0px;
-    width: 80%;
-    height: 100vh;
+    justify-content: center;
+    height: 800px;
+    width: 100%;
+}
+
+.home-container h1{
+    font-size: 60px;
+}
+
+.home-container button{
+    cursor: pointer;
+    padding: 30px;
+}
+
+@media (max-width: 600px) {
+    .home-container{
+        height: 700px;
+    }
+
+    .home-container h1{
+        font-size: 30px;
+    }
 }
