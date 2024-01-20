@@ -118,6 +118,8 @@ export default function Navigate() {
 
   return (
     <div className="directions-container">
+      
+      {showModal && selectedOrder && <MarkerModal order={selectedOrder} onClose={() => setShowModal(false)} />}
       <ReactMapGL
         {...viewport}
         mapStyle="mapbox://styles/mapbox/streets-v11"
@@ -131,6 +133,7 @@ export default function Navigate() {
         mapboxAccessToken={token}
         interactive={true}
         scrollZoom={true}
+        style={{ zIndex: 0}}
       >
         {routeData.length > 0 && (
           <>
@@ -153,8 +156,8 @@ export default function Navigate() {
                 <FaLocationDot color="blue" size={40} />
               </Marker>
             ))}
-            {showModal && selectedOrder && <MarkerModal order={selectedOrder} onClose={() => setShowModal(false)} />}
-
+             {showModal && selectedOrder && <MarkerModal order={selectedOrder} onClose={() => setShowModal(false)} />}
+            
             <NavigationControl showZoom position="top-right" />
             <Source id="route" type="geojson" data={geojson}>
               <Layer
@@ -174,6 +177,7 @@ export default function Navigate() {
           </>
         )}
       </ReactMapGL>
+      
     </div>
   );
 }
