@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
 import { sampleOrders, sampleOrder } from "../mockData.ts";
-
+import { Button } from "@/components/ui/button.tsx";
 const token =
   "pk.eyJ1Ijoiam1hZ3dpbGkiLCJhIjoiY2xwaGZwaHh0MDJtOTJqbzVkanpvYjRkNSJ9.fZFeViJyigw6k1ebFAbTYA";
 
@@ -127,7 +127,10 @@ export default function Navigate() {
     setShowPopup(false);
     setSelectedMarker(null);
   };
-
+  const extractUsername = (email: string) => {
+    const atIndex = email.indexOf('@');
+    return atIndex !== -1 ? email.substring(0, atIndex) : email;
+  };
   return (
     <div className="directions-container">
       <div style={{ width: "100%", height: "100%" }}>
@@ -161,7 +164,7 @@ export default function Navigate() {
                   style={{
                     height: "40px",
                     width: "auto",
-                    color: "red",
+                    color: "blue",
                   }}
                 />
               </div>
@@ -176,10 +179,25 @@ export default function Navigate() {
               anchor="top"
               onClose={closePopup}
             >
-              <h2>Customer: {sampleOrders[selectedMarker]?.username}</h2>
-              <p>Round: {sampleOrders[selectedMarker]?.round}</p>
-              <p>Slim: {sampleOrders[selectedMarker]?.slim}</p>
-              <p>Total: {sampleOrders[selectedMarker]?.total}</p>
+              <div className="grid bg-gray-100 p-4 rounded-md shadow-md w-100%">
+                <div className="flex-1">
+                  <h2 className="text-xl  mb-4">
+                    <span className = "font-bold" >Customer: </span>{extractUsername(sampleOrders[selectedMarker]?.username)}
+                  </h2>
+                  <p className="text-sm mb-2">
+                    Round: {sampleOrders[selectedMarker]?.round}
+                  </p>
+                  <p className="text-sm mb-2">
+                    Slim: {sampleOrders[selectedMarker]?.slim}
+                  </p>
+                  <p className="text-sm">Total: {sampleOrders[selectedMarker]?.total}</p>
+                </div>
+                <div className="flex items-end ml-16">
+                  <button className=" text-sm bg-blue-500 text-white px-4 py-2 rounded-md">
+                    Mark as Done
+                  </button>
+                </div>
+              </div>
             </Popup>
           )}
           <NavigationControl showZoom position="top-right" />
