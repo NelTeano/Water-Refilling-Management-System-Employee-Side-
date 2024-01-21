@@ -1,6 +1,6 @@
 import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import React, { useEffect, useState } from "react";
-import Map, {
+import ReactMapGL, {
   Marker,
   NavigationControl,
   GeolocateControl,
@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
 import { sampleOrders, sampleOrder } from "../mockData.ts";
-import MarkerModal from "@/components/MarkerModal.tsx";
+
 const token =
   "pk.eyJ1Ijoiam1hZ3dpbGkiLCJhIjoiY2xwaGZwaHh0MDJtOTJqbzVkanpvYjRkNSJ9.fZFeViJyigw6k1ebFAbTYA";
 
@@ -50,7 +50,7 @@ export default function Navigate() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<Order>();
   const [showModal, setShowModal] = useState(false);
-  const [selectedMarker, setSelectedMarker] = useState<number | null>(null);
+  const [selectedMarker, setSelectedMarker] = useState<any>();
   const geojson: FeatureCollection<Geometry, GeoJsonProperties> = {
     type: "FeatureCollection",
     features: [
@@ -111,94 +111,84 @@ export default function Navigate() {
 
     getRoute();
   }, []);
-  const handleMarkerClick = (order: Order, markerId: number | undefined) => {
+  const handleMarkerClick = (order: Order, markerId: number) => {
     console.log("Marker clicked:", order);
     setSelectedOrder(order);
-    setSelectedMarker(markerId || null); // Use null if markerId is undefined
+    setSelectedMarker(markerId); // Use null if markerId is undefined
     console.log(markerId);
     setShowModal(true);
   };
-  
-  
+  const [showPopup, setShowPopup] = useState(false);
+  const onClickMarker = (order: Order, id: number) => {
+    setSelectedOrder(order);
+    setSelectedMarker(id);
+  };
+  const closePopup = () => {
+    setShowPopup(false);
+    setSelectedMarker(null);
+  };
 
   return (
     <div className="directions-container">
-      <div style={{ width: "50%", height: "50%" }}>
-        <Map
-          {...viewport}
-          mapStyle="mapbox://styles/mapbox/streets-v11"
-          onDrag={(e) => {
-            setViewport((prevViewport) => ({
-              ...prevViewport,
-              longitude: e.viewState.longitude,
-              latitude: e.viewState.latitude,
-            }));
-          }}
+      <div style={{ width: "50vw", height: "50vh" }}>
+        <ReactMapGL
           mapboxAccessToken={token}
+          {...viewport}
+          mapStyle="mapbox://styles/mapbox/streets-v12"
+          interactive={true}
+          // center={[sampleOrders[0].location.longitude, sampleOrders[0].location.latitude]}
+          zoom={15}
         >
-          {routeData.length > 0 && (
-            <>
-              <GeolocateControl
-                positionOptions={{ enableHighAccuracy: true }}
-                trackUserLocation={true}
-              />
-              {/* { starting location} */}
-              <Marker latitude={startLoc[1]} longitude={startLoc[0]}>
-                <FaLocationDot color="red" size={40} />
-              </Marker>
-
-              {sampleOrders.map((order, index) => (
-                <div key={index}>
-                  <Marker
-                    latitude={order.location.latitude}
-                    longitude={order.location.longitude}
-                  >
-                    <FaLocationDot
-                      color="blue"
-                      size={40}
-                      onClick={() => handleMarkerClick(order,order._id)}
-                    />
-                  </Marker>
-                  {selectedOrder &&  (
-                    <Popup
-                      latitude={order.location.latitude}
-                      longitude={order.location.longitude}
-                      onClose={() => setShowModal(false)}
-                      style={{zIndex: 999}}
-                    >
-                      <div style={{width: 100, height: 100}}>
-                        {/* Popup content for the selected marker */}
-                        {/* You can customize this based on your requirements */}
-                        <h3>{order.username}</h3>
-                        <p>Round: {order.round}</p>
-                        <p>Slim: {order.slim}</p>
-                        <p>Total: {order.total}</p>
-                      </div>
-                    </Popup>
-                  )}
-                </div>
-              ))}
-
-              <NavigationControl showZoom position="top-right" />
-              <Source id="route" type="geojson" data={geojson}>
-                <Layer
-                  id="route"
-                  type="line"
-                  source="route"
-                  layout={{
-                    "line-join": "round",
-                    "line-cap": "round",
-                  }}
-                  paint={{
-                    "line-color": "#0096FF",
-                    "line-width": 8,
+          <Marker latitude={startLoc[1]} longitude={startLoc[0]}>
+            <FaLocationDot color="red" size={40} />
+          </Marker>
+          {sampleOrders.map((order, index) => (
+            <Marker
+              key={index}
+              latitude={order.location.latitude}
+              longitude={order.location.longitude}
+              onClick={() => onClickMarker(order, index)}
+            >
+              <div>
+                <FaLocationDot
+                  style={{
+                    height: "40px",
+                    width: "auto",
+                    color: "red",
                   }}
                 />
-              </Source>
-              {/* {showModal && selectedOrder && <MarkerModal order={selectedOrder} onClose={() => setShowModal(false)} />} */}
-            </>
+              </div>
+            </Marker>
+          ))}
+          {selectedMarker !== null && sampleOrders[selectedMarker] && (
+            <Popup
+              latitude={sampleOrders[selectedMarker]?.location?.latitude || 0}
+              longitude={sampleOrders[selectedMarker]?.location?.longitude || 0}
+              closeButton={true}
+              closeOnClick={false}
+              anchor="top"
+              onClose={closePopup}
+            >
+              <h2>{sampleOrders[selectedMarker]?.username}</h2>
+            </Popup>
           )}
-        </Map>
+          <NavigationControl showZoom position="top-right" />
+          <Source id="route" type="geojson" data={geojson}>
+            <Layer
+              id="route"
+              type="line"
+              source="route"
+              layout={{
+                "line-join": "round",
+                "line-cap": "round",
+              }}
+              paint={{
+                "line-color": "#0096FF",
+                "line-width": 8,
+              }}
+            />
+          </Source>
+        </ReactMapGL>
       </div>
     </div>
   );
