@@ -204,7 +204,9 @@ export default function Navigate() {
                     Total: {orders[selectedMarker]?.total}
                   </p>
                 </div>
-                <div className="flex items-end ml-16">
+                
+                <div className="mt-3">
+                  <Button variant="ghost" onClick={closePopup}>Close</Button>
                   <button
                     className=" text-sm bg-blue-500 text-white px-4 py-2 rounded-md"
                     onClick={() => {
