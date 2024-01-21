@@ -1,7 +1,7 @@
 // mockApiData.ts
 
 export interface sampleOrder {
-  _id?: string;
+  _id?: number;
   round: number;
   slim: number;
   total: number;
@@ -19,6 +19,7 @@ export interface sampleOrder {
 
 export const sampleOrders: sampleOrder[] = [
   {
+    _id: 1,
     round: 1,
     slim: 0,
     total: 30,
@@ -49,6 +50,7 @@ export const sampleOrders: sampleOrder[] = [
   //   updatedAt: "2024-01-10T14:29:47.017Z",
   // },
   {
+    _id: 2,
     round: 1,
     slim: 0,
     total: 30,
@@ -64,6 +66,7 @@ export const sampleOrders: sampleOrder[] = [
     updatedAt: "2024-01-10T14:29:47.017Z",
   },
   {
+    _id: 3,
     round: 1,
     slim: 0,
     total: 30,
@@ -79,6 +82,7 @@ export const sampleOrders: sampleOrder[] = [
     updatedAt: "2024-01-10T14:29:47.017Z",
   },
   {
+    _id: 4,
     round: 1,
     slim: 0,
     total: 30,
@@ -94,6 +98,7 @@ export const sampleOrders: sampleOrder[] = [
     updatedAt: "2024-01-10T14:29:47.017Z",
   },
   {
+    _id: 5,
     round: 1,
     slim: 0,
     total: 30,
