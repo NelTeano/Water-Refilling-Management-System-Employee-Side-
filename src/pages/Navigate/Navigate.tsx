@@ -128,7 +128,7 @@ export default function Navigate() {
     setSelectedMarker(null);
   };
   const extractUsername = (email: string) => {
-    const atIndex = email.indexOf('@');
+    const atIndex = email.indexOf("@");
     return atIndex !== -1 ? email.substring(0, atIndex) : email;
   };
   return (
@@ -179,10 +179,11 @@ export default function Navigate() {
               anchor="top"
               onClose={closePopup}
             >
-              <div className="grid bg-gray-100 p-4 rounded-md shadow-md w-100%">
+              <div className="grid bg-bdfff7 p-4 rounded-md shadow-md w-100%">
                 <div className="flex-1">
-                  <h2 className="text-xl  mb-4">
-                    <span className = "font-bold" >Customer: </span>{extractUsername(sampleOrders[selectedMarker]?.username)}
+                  <h2 className="text-lg  mb-2">
+                    <span className="font-bold">Customer: </span>
+                    {extractUsername(sampleOrders[selectedMarker]?.username)}
                   </h2>
                   <p className="text-sm mb-2">
                     Round: {sampleOrders[selectedMarker]?.round}
@@ -190,10 +191,13 @@ export default function Navigate() {
                   <p className="text-sm mb-2">
                     Slim: {sampleOrders[selectedMarker]?.slim}
                   </p>
-                  <p className="text-sm">Total: {sampleOrders[selectedMarker]?.total}</p>
+                  <p className="text-sm">
+                    Total: {sampleOrders[selectedMarker]?.total}
+                  </p>
                 </div>
                 <div className="flex items-end ml-16">
-                  <button className=" text-sm bg-blue-500 text-white px-4 py-2 rounded-md">
+                  <button className=" text-sm bg-blue-500 text-white px-4 py-2 rounded-md" 
+                  onClick={()=> {console.log("click", sampleOrders[selectedMarker])}}>
                     Mark as Done
                   </button>
                 </div>
