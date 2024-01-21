@@ -13,6 +13,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
 import { sampleOrders, sampleOrder } from "../mockData.ts";
 import { Button } from "@/components/ui/button.tsx";
+import axios from "axios";
 const token =
   "pk.eyJ1Ijoiam1hZ3dpbGkiLCJhIjoiY2xwaGZwaHh0MDJtOTJqbzVkanpvYjRkNSJ9.fZFeViJyigw6k1ebFAbTYA";
 
@@ -140,6 +141,25 @@ export default function Navigate() {
     const atIndex = email.indexOf("@");
     return atIndex !== -1 ? email.substring(0, atIndex) : email;
   };
+
+  const handleMarkDone = (orderId : string) => {
+    const handleUpdate = async () => {
+      try {
+        // Validate that orderId is not empty
+        if (!orderId) {
+          console.error("Order ID is required");
+          return;
+        }        
+        const response = await axios.put(`/orders/${orderId}`);    
+        console.log("Response:", response.data);
+        
+      } catch (error) {
+        console.error("Error:", error);
+        
+      }
+    };
+   }
+  
   return (
     <div className="directions-container">
       <div style={{ width: "100%", height: "100%" }}>
