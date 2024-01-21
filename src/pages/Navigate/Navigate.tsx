@@ -176,7 +176,10 @@ export default function Navigate() {
               anchor="top"
               onClose={closePopup}
             >
-              <h2>{sampleOrders[selectedMarker]?.username}</h2>
+              <h2>Customer: {sampleOrders[selectedMarker]?.username}</h2>
+              <p>Round: {sampleOrders[selectedMarker]?.round}</p>
+              <p>Slim: {sampleOrders[selectedMarker]?.slim}</p>
+              <p>Total: {sampleOrders[selectedMarker]?.total}</p>
             </Popup>
           )}
           <NavigationControl showZoom position="top-right" />
