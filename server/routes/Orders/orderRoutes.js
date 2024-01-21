@@ -25,7 +25,7 @@ OrderRoutes.put("/orders/:id", async (req, res) => {
 
     // Validate that the properties in req.body match the schema
   
-    const orders = await orderModel.updateOne({_id: orderId},{ $set: req.body })
+    const orders = await orderModel.updateOne({_id: orderId},{ $set: {status: "delivered"} })
     
     res.send({
       message: "successfully delivered the orders",

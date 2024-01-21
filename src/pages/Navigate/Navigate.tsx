@@ -23,7 +23,7 @@ interface Viewport {
   zoom: number;
 }
 interface Order {
-  _id?: number;
+  _id: string;
   round: number;
   slim: number;
   total: number;
@@ -150,7 +150,7 @@ export default function Navigate() {
           console.error("Order ID is required");
           return;
         }        
-        const response = await axios.put(`/orders/${orderId}`);    
+        const response = await axios.put(`http://localhost:5001/api/orders/${orderId}`);    
         console.log("Response:", response.data);
         
       } catch (error) {
@@ -158,6 +158,7 @@ export default function Navigate() {
         
       }
     };
+    handleUpdate();
    }
   
   return (
@@ -231,6 +232,7 @@ export default function Navigate() {
                     className=" text-sm bg-blue-500 text-white px-4 py-2 rounded-md"
                     onClick={() => {
                       console.log("click", orders[selectedMarker]);
+                      handleMarkDone(orders[selectedMarker]._id);
                     }}
                   >
                     Mark as Done
