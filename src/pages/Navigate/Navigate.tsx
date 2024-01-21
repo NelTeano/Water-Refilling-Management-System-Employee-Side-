@@ -82,18 +82,29 @@ export default function Navigate() {
   }, []);
 
   useEffect(() => {
-    const getRoute = async () => {
+    const getOrders = async () => {
       try {
         console.log("fetching orders");
-        const orderResponse = await fetch("http://localhost:5001/api/orders");
+        const orderResponse = await fetch("http://localhost:5001/api/orders/");
         const orderData = await orderResponse.json();
         setOrders(orderData);
-        console.log("fetched orders:",orders);
-        const orderLocations = orders.map((order: Order) => [
-          order.location.longitude,
-          order.location.latitude,
-        ]);
-        console.log("fetching route");
+        console.log("fetched orders:", orders);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getOrders();
+  }, []);
+  useEffect(() => {
+    const orderLocations = orders.map((order: Order) => [
+      order.location.longitude,
+      order.location.latitude,
+    ]);
+    console.log("orderloc", orderLocations);
+    console.log("fetching route");
+    const getRoute = async () => {
+      try {
         const response = await fetch(
           `https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${
             startLoc[0]
@@ -103,21 +114,19 @@ export default function Navigate() {
         );
         console.log("fetched route");
         const data = await response.json();
+
         setRouteData(data.routes[0].geometry.coordinates);
+
+        console.log(data.routes[0].geometry.coordinates);
       } catch (err) {
         console.log(err);
       }
     };
 
+    if (orders.length > 0) {
     getRoute();
-  }, []);
-  const handleMarkerClick = (order: Order, markerId: number) => {
-    console.log("Marker clicked:", order);
-    setSelectedOrder(order);
-    setSelectedMarker(markerId); // Use null if markerId is undefined
-    console.log(markerId);
-    setShowModal(true);
-  };
+  }
+  }, [orders]);
   const [showPopup, setShowPopup] = useState(false);
   const onClickMarker = (order: Order, id: number) => {
     setSelectedOrder(order);
@@ -196,8 +205,12 @@ export default function Navigate() {
                   </p>
                 </div>
                 <div className="flex items-end ml-16">
-                  <button className=" text-sm bg-blue-500 text-white px-4 py-2 rounded-md" 
-                  onClick={()=> {console.log("click", orders[selectedMarker])}}>
+                  <button
+                    className=" text-sm bg-blue-500 text-white px-4 py-2 rounded-md"
+                    onClick={() => {
+                      console.log("click", orders[selectedMarker]);
+                    }}
+                  >
                     Mark as Done
                   </button>
                 </div>
