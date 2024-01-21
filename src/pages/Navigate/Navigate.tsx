@@ -137,6 +137,13 @@ export default function Navigate() {
           mapStyle="mapbox://styles/mapbox/streets-v12"
           interactive={true}
           // center={[sampleOrders[0].location.longitude, sampleOrders[0].location.latitude]}
+          onDrag={(e) => {
+            setViewport((prevViewport) => ({
+              ...prevViewport,
+              longitude: e.viewState.longitude,
+              latitude: e.viewState.latitude,
+            }));
+          }}
           zoom={15}
         >
           <Marker latitude={startLoc[1]} longitude={startLoc[0]}>
