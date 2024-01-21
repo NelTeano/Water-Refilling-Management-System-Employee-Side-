@@ -130,7 +130,7 @@ export default function Navigate() {
 
   return (
     <div className="directions-container">
-      <div style={{ width: "50vw", height: "50vh" }}>
+      <div style={{ width: "100%", height: "100%" }}>
         <ReactMapGL
           mapboxAccessToken={token}
           {...viewport}
