@@ -1,6 +1,6 @@
 import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
 import React, { useEffect, useState } from "react";
-import ReactMapGL, {
+import Map, {
   Marker,
   NavigationControl,
   GeolocateControl,
@@ -119,8 +119,8 @@ export default function Navigate() {
   return (
     <div className="directions-container">
       
-      {showModal && selectedOrder && <MarkerModal order={selectedOrder} onClose={() => setShowModal(false)} />}
-      <ReactMapGL
+     <div style={{ width: '500px', height: '500px' }}> 
+      <Map
         {...viewport}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         onDrag={(e) => {
@@ -131,9 +131,8 @@ export default function Navigate() {
           }));
         }}
         mapboxAccessToken={token}
-        interactive={true}
-        scrollZoom={true}
-        style={{ zIndex: 0}}
+        
+      
       >
         {routeData.length > 0 && (
           <>
@@ -147,16 +146,32 @@ export default function Navigate() {
             </Marker>
 
             {sampleOrders.map((order, index) => (
-              <Marker
-                key={index}
-                latitude={order.location.latitude}
-                longitude={order.location.longitude}
-                onClick={() => handleMarkerClick(order)}
-              >
-                <FaLocationDot color="blue" size={40} />
-              </Marker>
-            ))}
-             {showModal && selectedOrder && <MarkerModal order={selectedOrder} onClose={() => setShowModal(false)} />}
+        <div key={index}>
+          <Marker
+            latitude={order.location.latitude}
+            longitude={order.location.longitude}
+          >
+            <FaLocationDot color="blue" size={40} onClick={() => handleMarkerClick(order)} />
+          </Marker>
+          {selectedOrder && selectedOrder._id === order._id && (
+            <Popup
+              latitude={order.location.latitude}
+              longitude={order.location.longitude}
+              onClose={() => setShowModal(false)}
+            >
+              <div>
+                {/* Popup content for the selected marker */}
+                {/* You can customize this based on your requirements */}
+                <h3>{order.username}</h3>
+                <p>Round: {order.round}</p>
+                <p>Slim: {order.slim}</p>
+                <p>Total: {order.total}</p>
+              </div>
+            </Popup>
+          )}
+        </div>
+      ))}
+
             
             <NavigationControl showZoom position="top-right" />
             <Source id="route" type="geojson" data={geojson}>
@@ -174,10 +189,11 @@ export default function Navigate() {
                 }}
               />
             </Source>
+            {/* {showModal && selectedOrder && <MarkerModal order={selectedOrder} onClose={() => setShowModal(false)} />} */}
           </>
         )}
-      </ReactMapGL>
-      
+      </Map>
+      </div> 
     </div>
   );
 }
