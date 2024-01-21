@@ -55,7 +55,7 @@ export default function Orders() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 4;
 
-  const [filteredCustomers, setFilteredCustomers] = useState<sampleOrder[]>(orders);
+  const [filteredCustomers, setFilteredCustomers] = useState<Order[]>(orders);
   const [searchTerm, setSearchTerm] = useState("");
 
   const totalPages = Math.ceil(filteredCustomers.length / pageSize);
@@ -80,7 +80,7 @@ export default function Orders() {
  useEffect(() => {
   if (orders.length > 0) {
     // Filter customers based on the search term
-    const filtered = sampleOrders.filter((order) =>
+    const filtered = orders.filter((order) =>
       order.username?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 

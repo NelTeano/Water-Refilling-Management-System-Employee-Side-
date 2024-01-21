@@ -88,8 +88,8 @@ export default function Navigate() {
         const orderResponse = await fetch("http://localhost:5001/api/orders");
         const orderData = await orderResponse.json();
         setOrders(orderData);
-        console.log(orders);
-        const orderLocations = sampleOrders.map((order: Order) => [
+        console.log("fetched orders:",orders);
+        const orderLocations = orders.map((order: Order) => [
           order.location.longitude,
           order.location.latitude,
         ]);
@@ -152,7 +152,7 @@ export default function Navigate() {
           <Marker latitude={startLoc[1]} longitude={startLoc[0]}>
             <FaLocationDot color="red" size={40} />
           </Marker>
-          {sampleOrders.map((order, index) => (
+          {orders.map((order, index) => (
             <Marker
               key={index}
               latitude={order.location.latitude}
@@ -170,34 +170,34 @@ export default function Navigate() {
               </div>
             </Marker>
           ))}
-          {selectedMarker !== null && sampleOrders[selectedMarker] && (
+          {selectedMarker !== null && orders[selectedMarker] && (
             <Popup
-              latitude={sampleOrders[selectedMarker]?.location?.latitude || 0}
-              longitude={sampleOrders[selectedMarker]?.location?.longitude || 0}
+              latitude={orders[selectedMarker]?.location?.latitude || 0}
+              longitude={orders[selectedMarker]?.location?.longitude || 0}
               closeButton={true}
               closeOnClick={false}
-              anchor="top"
+              anchor="bottom"
               onClose={closePopup}
             >
               <div className="grid bg-bdfff7 p-4 rounded-md shadow-md w-100%">
                 <div className="flex-1">
                   <h2 className="text-lg  mb-2">
                     <span className="font-bold">Customer: </span>
-                    {extractUsername(sampleOrders[selectedMarker]?.username)}
+                    {extractUsername(orders[selectedMarker]?.username)}
                   </h2>
                   <p className="text-sm mb-2">
-                    Round: {sampleOrders[selectedMarker]?.round}
+                    Round: {orders[selectedMarker]?.round}
                   </p>
                   <p className="text-sm mb-2">
-                    Slim: {sampleOrders[selectedMarker]?.slim}
+                    Slim: {orders[selectedMarker]?.slim}
                   </p>
                   <p className="text-sm">
-                    Total: {sampleOrders[selectedMarker]?.total}
+                    Total: {orders[selectedMarker]?.total}
                   </p>
                 </div>
                 <div className="flex items-end ml-16">
                   <button className=" text-sm bg-blue-500 text-white px-4 py-2 rounded-md" 
-                  onClick={()=> {console.log("click", sampleOrders[selectedMarker])}}>
+                  onClick={()=> {console.log("click", orders[selectedMarker])}}>
                     Mark as Done
                   </button>
                 </div>
