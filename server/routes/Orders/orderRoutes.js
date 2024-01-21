@@ -1,5 +1,6 @@
 import { Router } from "express";
 import orderModel from "../../models/Orders.js";
+import { ObjectId } from "mongoose";
 import mongoose from "mongoose";
 const OrderRoutes = Router();
 
@@ -17,21 +18,20 @@ OrderRoutes.get("/orders", async (req, res) => {
   }
 });
 
-OrderRoutes.post("/orders/", async (req, res) => {
+OrderRoutes.put("/orders/:id", async (req, res) => {
 
   try {
-    const orders = await orderModel.find({ _id: req.body});
+    const orderId = new mongoose.Types.ObjectId(req.params.id);
 
-    for (let i in orders) {
-      orders[i].status = "delivered";
-      await orders[i].save();
-    }
-
+    // Validate that the properties in req.body match the schema
+  
+    const orders = await orderModel.updateOne({_id: orderId},{ $set: req.body })
+    
     res.send({
       message: "successfully delivered the orders",
       successful: true,
     });
-    console.log("Successfully delivered the orders");
+    console.log("Successfully delivered the orders", orders);
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ message: error.message });
