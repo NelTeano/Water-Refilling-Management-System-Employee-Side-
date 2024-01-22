@@ -4,6 +4,7 @@ import { format } from "date-fns";
 // COMPONENTS
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import {
   Table,
@@ -44,6 +45,7 @@ interface Order {
 
 export default function Orders() {
 
+  const { isAuthenticated } = useAuth0();
   //const [orders, setOrders] = useOrders();
 
   const [orders, setOrders] = useState<Order[]>([]);
@@ -105,6 +107,7 @@ export default function Orders() {
   // ------------------------------------------------------------
 
   return (
+    isAuthenticated &&
     <>
       <div className="orders-container">
         <section className="orders-searchBar">

@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { slide as Menu } from 'react-burger-menu';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -9,6 +10,7 @@ import './Hamburger.css';
 import crossIcon from '../../assets/cross-svg.png';
 
 function Hamburger() {
+    const { logout } = useAuth0();
     const [isOpen, setOpen] = useState(false)
 
     const handleIsOpen = () => {
@@ -28,13 +30,13 @@ function Hamburger() {
             noTransition 
             customCrossIcon={<img height={'30px'} width={'30px'} src={crossIcon} />}
         >
-            <Link to={'/Locations'} onClick={closeSideBar}>
-                Locations
+            <Link to={'/Navigate'} onClick={closeSideBar}>
+                Navigation
             </Link>
             <Link to={'/Orders'} onClick={closeSideBar}>
                 Orders
             </Link>
-            <Link to={'/'} onClick={closeSideBar}>
+            <Link to={'/'} onClick={()=>{ logout() }}>
                 Logout
             </Link>
         </Menu>

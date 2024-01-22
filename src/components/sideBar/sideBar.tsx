@@ -1,4 +1,5 @@
 import React from 'react'
+import { useAuth0 } from '@auth0/auth0-react';
 
 // COMPONENTS
 import { Button } from '../ui/button'
@@ -12,15 +13,17 @@ import { LiaSearchLocationSolid } from "react-icons/lia";
 
 import './sideBar.css'
 
-export default function sideBar() {
+export default function SideBar() {
+
+    const { logout } = useAuth0();
     
     return (
         <>
             <nav className='sidebar'>
                 <div><h2>Hydro<span>Maze</span></h2></div>         
                 <Link to={'/Orders'}><Button variant="link" ><FaShoppingCart className="sidebar-icons"/>Orders</Button></Link>
-                <Link to={'/Locations'}><Button variant="link"><LiaSearchLocationSolid className="sidebar-icons"/>Locations</Button></Link>
-                <Button className="sidebar-logout" variant="link"><IoLogOut className="sidebar-icons"/>Log Out</Button>
+                <Link to={'/Navigate'}><Button variant="link"><LiaSearchLocationSolid className="sidebar-icons"/>Navigation</Button></Link>
+                <Button className="sidebar-logout" variant="link" onClick={()=>{ logout() }}><IoLogOut className="sidebar-icons"/>Log Out</Button>
             </nav>
         </>
     )

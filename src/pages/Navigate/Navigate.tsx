@@ -1,4 +1,5 @@
 import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
+import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect, useState } from "react";
 import ReactMapGL, {
   Marker,
@@ -39,6 +40,7 @@ interface Order {
   };
 }
 export default function Navigate() {
+  const { isAuthenticated } = useAuth0();
   const startLoc = [120.97848290128735, 14.24044706931592];
   const [routeData, setRouteData] = useState([]);
   const [latitude, setLatitude] = useState<number>(0);
@@ -159,11 +161,12 @@ export default function Navigate() {
       }
     };
     handleUpdate();
-   }
+  }
   
   return (
-    <div className="directions-container">
-      <div style={{ width: "100%", height: "100%" }}>
+    isAuthenticated &&
+    <div  className="orders-container">
+      <div style={{ display: 'flex', alignItems: 'center', position: 'relative', left: '0px', width: "100%", height: "100%" }}>
         <ReactMapGL
           mapboxAccessToken={token}
           {...viewport}
@@ -204,7 +207,7 @@ export default function Navigate() {
             <Popup
               latitude={orders[selectedMarker]?.location?.latitude || 0}
               longitude={orders[selectedMarker]?.location?.longitude || 0}
-              closeButton={true}
+              closeButton={false}
               closeOnClick={false}
               anchor="bottom"
               onClose={closePopup}
