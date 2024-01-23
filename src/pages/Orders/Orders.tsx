@@ -123,7 +123,7 @@ export default function Orders() {
         </section>
         <div>
           
-          <Table className="order-table" id="order-table-desktop">
+          <Table className="order-table capitalize" id="order-table-desktop">
             <TableCaption>A list of Orders</TableCaption>
             <TableHeader>
               <TableRow>
@@ -172,19 +172,13 @@ export default function Orders() {
               <TableCaption>A list of Orders</TableCaption>
               <TableBody>
                   {filteredCustomers.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((customer, index) => (
-                  <div key={index} className="mb-4">
+                  <div key={index} className="mb-4 capitalize">
                       <div className="mb-2"><strong>Name :</strong> {customer.username}</div>
                       <div><strong>Slim :</strong> {customer.slim}</div>
                       <div><strong>Round :</strong> {customer.round}</div>
                       <div><strong>Total :</strong> ₱{customer.total}</div>
                       <div><strong>Status :</strong> {customer.status}</div>
                       <div><strong>Date :</strong> {format(new Date(customer.createdAt), 'MMMM d, yyyy  h:mm a')}</div>
-                      <div><strong>Mark as Done :</strong></div>
-                      <div className="text-right">
-                          <Button>
-                              <MdDeliveryDining className="direction-icon"/>
-                          </Button>
-                      </div>
                   </div>
                   ))}
               </TableBody>
@@ -194,12 +188,12 @@ export default function Orders() {
 
         </div>
         <section className="orders-pageButtons">
-          <Button variant="ghost" onClick={handlePrevClick}>Previous</Button>
-          <Button variant="ghost" onClick={handleNextClick}>Next</Button>
+          <Button className="bg-[#34ACAC] text-white" variant="ghost" onClick={handlePrevClick}>Previous</Button>
+          <Button className="bg-[#34ACAC] text-white" variant="ghost" onClick={handleNextClick}>Next</Button>
         </section>
         <div>
           <Link to="/Navigate/">
-            <Button>Start Navigation</Button>
+            <Button className="bg-[#34ACAC]">Start Navigation</Button>
           </Link>
         </div>
       </div>

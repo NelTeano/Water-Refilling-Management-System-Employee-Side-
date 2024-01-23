@@ -238,7 +238,7 @@ export default function Navigate() {
                       handleMarkDone(orders[selectedMarker]._id);
                     }}
                   >
-                    Mark as Done
+                    Delivered
                   </button>
                 </div>
               </div>

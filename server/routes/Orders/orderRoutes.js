@@ -8,7 +8,7 @@ const OrderRoutes = Router();
 
 OrderRoutes.get("/orders", async (req, res) => {
   try {
-    const getOrders = await orderModel.find({ status: "confirmed" });
+    const getOrders = await orderModel.find({ status: "for delivery" });
     res.json(getOrders);
     console.log(getOrders);
     console.log("Successfully get the Orders");

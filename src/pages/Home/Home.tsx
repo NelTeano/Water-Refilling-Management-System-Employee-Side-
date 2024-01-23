@@ -1,21 +1,22 @@
-import React from 'react'
-
-// COMPONENTS
-import { useAuth0 } from '@auth0/auth0-react'
-
-// PAGE STYLES
-import './Home.css'
+import React, { useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import './Home.css';
 import { Button } from '@/components/ui/button';
 
-export default function Home() {
+const Home = () => {
+    const { loginWithRedirect, isAuthenticated } = useAuth0();
 
-    const { loginWithRedirect } = useAuth0();
+    useEffect(() => {
+        if (!isAuthenticated) {
+            loginWithRedirect();
+        }
+    }, [isAuthenticated, loginWithRedirect]);
+
     return (
-        <>
-            <div className='home-container'>
-                <h1>Hydromaze Delivery Side</h1>
-                <Button onClick={()=>{ loginWithRedirect()}}>Login</Button>
-            </div>
-        </>
-    )
-}
+        <div className='home-container'>
+            {/* Your component content goes here */}
+        </div>
+    );
+};
+
+export default Home;
