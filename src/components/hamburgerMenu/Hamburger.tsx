@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import './Hamburger.css';
 
 // IMAGES 
-import crossIcon from '../../assets/cross-svg.png';
+import crossIcon from '../../assets/cross-iconn.png';
 
 function Hamburger() {
     const { logout } = useAuth0();
@@ -22,13 +22,13 @@ function Hamburger() {
     }
 
     return (
-        <Menu  
+        <Menu 
             onOpen={handleIsOpen}
             onClose={handleIsOpen} 
             isOpen={isOpen} 
             right 
             noTransition 
-            customCrossIcon={<img height={'30px'} width={'30px'} src={crossIcon} />}
+            customCrossIcon={<img height={'20px'} width={'20px'} src={crossIcon} />}
         >
             <Link to={'/Navigate'} onClick={closeSideBar}>
                 Navigation

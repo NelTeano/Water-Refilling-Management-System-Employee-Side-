@@ -25,6 +25,7 @@
     width: 60px !important;  /* Adjust the width as needed */
     margin: 20px 40px 0px 0px;
 }
+
   
   /* Color/shape of close button cross */
 
@@ -42,7 +43,7 @@
   .bm-menu {
     background: #373a47;
     padding: 2.5em 1.5em 0;
-    font-size: 40px;
+    font-size: 30px;
   }
   
   /* Morph shape necessary with bubble or elastic */
@@ -54,8 +55,9 @@
   .bm-item-list {
     display: flex;
     justify-content: center;
-    gap: 100px;
-    color: #b8b7ad;
+    gap: 50px;
+    color: white;
+    background-color: #34ACAC;
     width: 100%;
   }
   
